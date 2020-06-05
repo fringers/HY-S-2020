@@ -2,13 +2,7 @@ from bs4 import BeautifulSoup, NavigableString
 import urllib.request
 import json
 import pyrebase
-
-config = {
-  "apiKey": "AIzaSyDOVEnFxl7AXDjlxzrgDzJbIEmN2I7770I",
-  "authDomain": "project-532228461078.firebaseapp.com",
-  "databaseURL": "https://hy-s-2020.firebaseio.com/",
-  "storageBucket": "project-532228461078.appspot.com"
-}
+from firebase_config import config
 
 
 if __name__ == '__main__':
