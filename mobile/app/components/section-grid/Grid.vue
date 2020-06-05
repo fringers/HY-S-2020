@@ -13,6 +13,7 @@
 
 <script>
   import SectionTile from "./SectionTile.vue";
+  import SectionPage from "../SectionPage.vue";
 
   export default {
     components: {
@@ -20,6 +21,7 @@
     },
     data () {
       return {
+        sectionPage: SectionPage,
         itemList: [
           {
             text: 'ŻYCIE SPOŁECZNE'
@@ -41,7 +43,7 @@
     },
     methods: {
       onItemTap () {
-
+        this.$navigateTo(this.sectionPage)
       }
     }
   }
