@@ -34,6 +34,6 @@ if __name__ == '__main__':
         sections += [section]
         counter += 1
 
-    results = db.child("PL").push(sections)
+    results = db.child("PL").set(sections)
 
 
