@@ -2,3 +2,6 @@
 /mobile/node_modules/
 /mobile/platforms/
 /mobile/hooks/
+/crawler-python/.idea
+/crawler-python/__pycache__
+/crawler-python/venv
