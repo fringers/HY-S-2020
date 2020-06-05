@@ -1,34 +1,71 @@
 <template>
-    <Page>
-        <ActionBar title="Home"/>
-        <ScrollView>
-            <StackLayout class="home-panel">
-                <!--Add your page content here-->
-                <Label textWrap="true" text="Play with NativeScript!" class="h2 description-label" />
-                <Label textWrap="true" text="Write code in the editor or drag and drop components to build a NativeScript mobile application." class="h2 description-label" />
-                <Label textWrap="true" text="Scan the QR code with your mobile device and watch the changes sync live while you play with the code." class="h2 description-label" />
-            </StackLayout>
-        </ScrollView>
-    </Page>
+  <Page>
+    <ActionBar title="Super info o COVID-19"/>
+    <StackLayout class="home-panel">
+      <SearchBar hint="Szukaj info ..."
+                 :text="searchPhrase" @textChange="onTextChanged($event)"
+                 @clear="onClear($event)" @submit="onSubmit($event)">
+      </SearchBar>
+
+      <ListView for="item in listOfItems" @itemTap="onItemTap" >
+        <v-template>
+          <!-- Shows the list item label in the default color and style. -->
+          <Label :text="item.text" />
+        </v-template>
+      </ListView>
+    </StackLayout>
+  </Page>
 </template>
 
 <script>
-export default {
+  export default {
     data () {
-        return {
-        };
+      return {
+        searchPhrase: '',
+        listOfItems: [
+          {
+            text: 'ŻYCIE SPOŁECZNE'
+          },
+          {
+            text: 'OPIEKA I EDUKACJA'
+          },
+          {
+            text: 'GRANICE I RUCH MIĘDZYNARODOWY'
+          },
+          {
+            text: 'GOSPODARKA'
+          },
+          {
+            text: 'SPORT I REKREACJA'
+          },
+        ],
+      };
     },
-}
+    methods: {
+      onTextChanged ($event) {
+        // console.log('onTextChanged', $event);
+      },
+      onClear ($event) {
+        // console.log($event);
+      },
+      onSubmit ($event) {
+        // console.log($event);
+      },
+      onItemTap () {
+
+      },
+    },
+  }
 </script>
 
 <style scoped>
-.home-panel {
-    vertical-align: center;
+  .home-panel {
+    vertical-align: top;
     font-size: 20;
-    margin: 15;
-}
+    margin: 0;
+  }
 
-.description-label {
+  .description-label {
     margin-bottom: 15;
-}
+  }
 </style>
