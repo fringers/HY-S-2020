@@ -1,9 +1,9 @@
 <template>
   <Page>
-    <ActionBar title="">
+    <ActionBar>
       <StackLayout orientation="horizontal">
-        <Image src="~/assets/logo.png" width="40" height="40" verticalAlignment="center" />
-        <Label text="Super info o COVID-19" fontSize="24" verticalAlignment="center" />
+        <Image src="~/assets/logo.png" width="40" height="40" class="logo" />
+        <Label text="Super info o COVID-19" class="title" />
       </StackLayout>
     </ActionBar>
     <StackLayout class="home-panel">
@@ -16,45 +16,25 @@
                  @loaded="onSearchBarLoaded"
       />
 
-      <ListView for="item in listOfItems" @itemTap="onItemTap" >
-        <v-template>
-          <!-- Shows the list item label in the default color and style. -->
-          <Label :text="item.text" />
-        </v-template>
-      </ListView>
+      <Grid />
     </StackLayout>
   </Page>
 </template>
 
 <script>
   import GeneralInfo from "./general-info/Panel.vue";
+  import Grid from "./section-grid/Grid.vue";
 
   export default {
     components: {
       GeneralInfo,
+      Grid,
     },
     data () {
       return {
         searchPhrase: '',
         country: 'Polska',
-        region: 'Mazowieckie',
-        listOfItems: [
-          {
-            text: 'ŻYCIE SPOŁECZNE'
-          },
-          {
-            text: 'OPIEKA I EDUKACJA'
-          },
-          {
-            text: 'GRANICE I RUCH MIĘDZYNARODOWY'
-          },
-          {
-            text: 'GOSPODARKA'
-          },
-          {
-            text: 'SPORT I REKREACJA'
-          },
-        ],
+        region: 'Mazowieckie'
       };
     },
     methods: {
@@ -72,33 +52,25 @@
       onSubmit () {
         // console.log('onSubmit');
       },
-      onItemTap () {
-        // console.log('onItemTap');
-      },
     },
   }
 </script>
 
 <style scoped>
+  .logo {
+    horizontal-alignment: right;
+    vertical-alignment: center;
+  }
+
+  .title {
+    vertical-alignment: center;
+    font-size: 26;
+  }
+
   .home-panel {
     vertical-align: top;
     font-size: 20;
     margin: 0;
   }
 
-  .general-info-panel {
-    margin: 16;
-  }
-
-  .info-country-name {
-    font-size: 16;
-  }
-
-  .info-region-name {
-    font-size: 18;
-  }
-
-  .description-label {
-    margin-bottom: 15;
-  }
 </style>

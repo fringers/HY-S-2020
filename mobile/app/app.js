@@ -1,4 +1,7 @@
 import Vue from 'nativescript-vue';
+import RadListView from 'nativescript-ui-listview/vue';
+
+Vue.use(RadListView);
 
 import HelloWorld from './components/HelloWorld';
 

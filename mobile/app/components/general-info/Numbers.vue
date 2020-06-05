@@ -38,6 +38,7 @@
     font-size: 18;
     horizontal-alignment: right;
     font-weight: bold;
+    margin-top: -6;
   }
 
   .text-green {
