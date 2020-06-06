@@ -1,7 +1,8 @@
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup
 import urllib.request
-import json
 import pyrebase
+import copy
+from googletrans import Translator
 
 config = {
   "apiKey": "AIzaSyDOVEnFxl7AXDjlxzrgDzJbIEmN2I7770I",
@@ -11,7 +12,12 @@ config = {
 }
 
 
+srcLang = "pl"
+destLangs = ["sk", "cs", "hu", "en"]
+
 if __name__ == '__main__':
+    translator = Translator()
+
     firebase = pyrebase.initialize_app(config)
     db = firebase.database()
 
@@ -27,10 +33,27 @@ if __name__ == '__main__':
     for current in sectionsIterator:
         headerTag = current
         descriptionTag = next(sectionsIterator)
+
         section = {}
         section["id"] = counter
-        section["title"] = headerTag.text
-        section["content"] = descriptionTag.prettify()
+        section["title"] = {}
+        section["title"][srcLang] = headerTag.text
+        section["content"] = {}
+        section["content"][srcLang] = descriptionTag.prettify()
+
+        for destLang in destLangs:
+            copyHeaderTag = copy.copy(headerTag)
+            copyDescriptionTag = copy.copy(descriptionTag)
+
+            for txt in copyDescriptionTag.findAll(text=True):
+                if txt.strip() == "":
+                    continue
+                print("#"+txt+"#")
+                txt.replaceWith(translator.translate(str(txt), dest=destLang, src=srcLang).text)
+
+            section["title"][destLang] = translator.translate(str(copyHeaderTag), dest=destLang, src=srcLang).text
+            section["content"][destLang] = copyDescriptionTag.prettify()
+
         sections += [section]
         counter += 1
 
