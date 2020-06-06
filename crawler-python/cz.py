@@ -26,12 +26,13 @@ if __name__ == '__main__':
         content = section.findNext('p')
         all_content = {}
         while content != nextSection:
-            for lang, translated_content in translate("en", content):
+            for lang, translated_content in translate("en", content).items():
                 if lang in all_content:
                     all_content[lang] += translated_content
                 else:
                     all_content[lang] = translated_content
             content = content.findNext(['p', 'ul'])
+
         output[id_] = build_section(
           id_,
           translate("en", section),

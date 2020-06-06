@@ -19,6 +19,7 @@ def translate(srcLang, element):
     for destLang in destLangs:
         if srcLang == destLang:
             output[destLang.upper()] = element.prettify()
+            continue
 
         copyElement = copy.copy(element)
         for txt in copyElement.findAll(text=True):
@@ -27,7 +28,7 @@ def translate(srcLang, element):
             #txt.replaceWith(translator.translate(str(txt), dest=destLang, src=srcLang).text)
             txt.replaceWith(
               translate_client.translate(
-                str(txt).decode('utf-8'),
+                str(txt),
                 source_language=srcLang,
                 target_language=destLang)['translatedText']
             )
