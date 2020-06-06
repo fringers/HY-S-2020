@@ -3,21 +3,43 @@
     <ActionBar>
       <StackLayout orientation="horizontal">
         <Image src="~/assets/logo.png" width="40" height="40" class="logo" />
-        <Label text="Super info o COVID-19" class="title" />
+        <Label :text="title" class="title" />
       </StackLayout>
     </ActionBar>
-    <StackLayout class="home-panel">
+    <StackLayout class="content-panel">
 
-      <Label text="Section" />
+      <HtmlView :html="content" />
     </StackLayout>
   </Page>
 </template>
 
 <script>
   export default {
-    created () {
-      console.log(global.PL)
-    }
+    props: ['id'],
+    computed: {
+      item () {
+        const PL = this.$store.state.PL;
+        if (!PL) {
+          return null;
+        }
+
+        return PL.value[this.id];
+      },
+      title () {
+        if (!this.item) {
+          return '';
+        }
+
+        return this.item.title.pl;
+      },
+      content () {
+        if (!this.item) {
+          return '';
+        }
+
+        return this.item.content.pl;
+      },
+    },
   }
 </script>
 
@@ -32,9 +54,9 @@
     font-size: 26;
   }
 
-  .home-panel {
+  .content-panel {
     vertical-align: top;
     font-size: 20;
-    margin: 0;
+    margin: 16;
   }
 </style>
