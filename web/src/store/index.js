@@ -24,6 +24,12 @@ export default new Vuex.Store({
       state.country = country;
     },
     setLocation(state, location) {
+      if (!state.location || (
+        state.location.country !== location.country
+        && location.country !== state.country
+      )) {
+        state.country = location.country;
+      }
       state.location = location;
     },
     setToolbarTitle(state, title) {
