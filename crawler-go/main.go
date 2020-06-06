@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	firebase "firebase.google.com/go"
@@ -121,18 +122,9 @@ func setContent(s *goquery.Selection, c *string) string {
 }
 
 func appendContent(tag string, html string) string {
-	switch tag {
-	case "ul":
-		return "<ul>" + html + "</ul>"
-	case "p":
-		return "<p>" + html + "</p>"
-	case "h2":
-		return "<h2>" + html + "</h2>"
-	case "h3":
-		return "<h3>" + html + "</h3>"
-	case "h4":
-		return "<h4>" + html + "</h4>"
-	default:
+	if tag == "" {
 		return html
 	}
+
+	return fmt.Sprintf("<%s>%s</%s>", tag, html, tag)
 }
