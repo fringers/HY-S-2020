@@ -70,7 +70,7 @@
   }
 
   .map {
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 140px;
     z-index: 0 !important;
