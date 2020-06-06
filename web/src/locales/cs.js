@@ -3,7 +3,8 @@ export default {
     label: "Země",
     PL: 'Polsko',
     CS: 'Česká',
-    SK: 'Slovensko'
+    SK: 'Slovensko',
+    HU: 'Maďarsko'
   },
   province: {
     masovian: 'Mazowieckie',

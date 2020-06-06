@@ -49,8 +49,14 @@ const saveToken = (token) => {
 };
 
 messaging.onMessage(function(payload) {
-  console.log("Message received. ", payload);
-  // ...
+  console.log(payload)
+  store.commit('addNotification', {
+    id: payload.data['google.c.a.c_id'],
+    name: payload.data['google.c.a.c_l'],
+    body: payload.notification.body,
+    title: payload.notification.title,
+    tag: payload.notification.tag,
+  });
 });
 
 
@@ -74,17 +80,27 @@ SKRef.on("value", snapshot => {
   store.commit('setSK', snapshot.val());
 });
 
+const HURef = dbRef.child('HU');
+HURef.on("value", snapshot => {
+  store.commit('setHU', snapshot.val());
+});
+
 const PLDataRef = dbRef.child('PL-data');
-PLDataRef.on("value", snapshot => {
+PLDataRef.once("value", snapshot => {
   store.commit('setPLData', snapshot.val());
 });
 
 const CSDataRef = dbRef.child('CS-data');
-CSDataRef.on("value", snapshot => {
+CSDataRef.once("value", snapshot => {
   store.commit('setCSData', snapshot.val());
 });
 
 const SKDataRef = dbRef.child('SK-data');
-SKDataRef.on("value", snapshot => {
+SKDataRef.once("value", snapshot => {
   store.commit('setSKData', snapshot.val());
+});
+
+const HUDataRef = dbRef.child('HU-data');
+HUDataRef.once("value", snapshot => {
+  store.commit('setHUData', snapshot.val());
 });

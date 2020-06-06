@@ -78,6 +78,10 @@ export default {
           value: 'SK',
           text: this.$t('country.SK'),
         },
+        {
+          value: 'HU',
+          text: this.$t('country.HU'),
+        },
       ];
     }
   },

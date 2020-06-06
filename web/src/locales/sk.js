@@ -3,7 +3,8 @@ export default {
     label: "Krajina",
     PL: 'Poľsko',
     CS: 'Česká',
-    SK: 'Slovensko'
+    SK: 'Slovensko',
+    HU: 'Maďarsko'
   },
   province: {
     masovian: 'Mazowieckie',

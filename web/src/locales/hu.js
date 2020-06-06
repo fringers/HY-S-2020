@@ -3,7 +3,8 @@ export default {
     label: "Ország",
     PL: 'Lengyelország',
     CS: 'Cseh',
-    SK: 'Szlovákia'
+    SK: 'Szlovákia',
+    HU: 'Magyarország'
   },
   province: {
     masovian: 'Mazowieckie',

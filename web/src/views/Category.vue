@@ -2,7 +2,7 @@
   <v-expansion-panels
     flat
     focusable
-    multiple :value="[0]"
+    multiple :value="value"
   >
     <v-expansion-panel
       v-for="item in items"
@@ -47,6 +47,13 @@
 
         return this.category.name[this.lang];
       },
+      value () {
+        if (this.items && this.items.length > 1) {
+          return [];
+        } else {
+          return [0];
+        }
+      }
     },
     created() {
       this.$store.commit('setToolbarTitle', this.title);

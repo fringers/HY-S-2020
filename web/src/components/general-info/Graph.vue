@@ -44,7 +44,7 @@
         return this.$t('country.' + this.location.country);
       },
       region () {
-        if (!this.location) {
+        if (!this.location || !this.location.region) {
           return '';
         }
         return this.$t('province.' + this.location.region);
