@@ -22,13 +22,13 @@
       <v-row v-if="regionCurrentStatus && regionLastStatus">
         <div class="d-flex flex-row pt-2">
           <Numbers
-            icon="😷"
+            img="/imgs/fever.png"
             :value="regionCurrentStatus.infectedCount"
             :changes="infectedChange"
           />
 <!--          <Numbers icon="💪" :value="1504" changes="+5" :inverted-color="true" />-->
           <Numbers
-            icon="💀"
+            img="/imgs/rip.png"
             :value="regionCurrentStatus.deceasedCount"
             :changes="deceasedChange"
           />

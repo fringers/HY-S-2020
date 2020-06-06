@@ -48,7 +48,7 @@
 <script>
 import Panel from "@/components/general-info/Panel.vue";
 import Graph from "@/components/general-info/Graph.vue";
-import Grid from "@/components/section-grid/Grid.vue";
+import Grid from "@/components/categories-grid/Grid.vue";
 
 export default {
   name: 'Home',

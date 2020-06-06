@@ -17,6 +17,11 @@ firebase.initializeApp(firebaseConfig);
 
 const dbRef = firebase.database().ref();
 
+const categoriesRef = dbRef.child('CATEGORIES');
+categoriesRef.on("value", snapshot => {
+  store.commit('setCategories', snapshot.val());
+});
+
 const PLRef = dbRef.child('PL');
 PLRef.on("value", snapshot => {
   store.commit('setPL', snapshot.val());

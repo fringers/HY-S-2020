@@ -88,3 +88,12 @@ export const numToStr = (num) => {
     return '0';
   }
 }
+
+export const getSectionsByCountryAndCategoryId = (state, country, categoryId) => {
+  const data = state[country];
+  if (!data) {
+    return null;
+  }
+
+  return data.filter(item => item.categoryId === categoryId);
+}

@@ -10,9 +10,10 @@ export default new Vuex.Store({
     country: 'PL',
     location: null,
     toolbarTitle: '',
-    PL: null,
-    CS: null,
-    PLData: null,
+    categories: [],
+    PL: [],
+    CS: [],
+    PLData: [],
   },
   mutations: {
     setLang(state, lang) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     setToolbarTitle(state, title) {
       state.toolbarTitle = title;
+    },
+    setCategories(state, categories) {
+      state.categories = categories;
     },
     setPL(state, PL) {
       state.PL = PL;
