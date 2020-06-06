@@ -2,12 +2,14 @@ export default {
   country: {
     label: "Country",
     PL: 'Poland',
-    CS: 'Czech'
+    CS: 'Czech',
+    SK: 'Slovakia'
   },
   province: {
     masovian: 'Masovian',
     lesser_poland: 'Lesser poland',
-    prague: 'Prague'
+    prague: 'Prague',
+    bratislava: 'Bratislava'
   },
   search: {
     label: "Search..."

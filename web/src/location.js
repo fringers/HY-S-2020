@@ -7,12 +7,7 @@ async function success(pos) {
   const data = await response.json();
 
   const countryCode = mapCountryCode(data.results[0].components.country_code);
-  let region = data.results[0].components.state;
-  region = region
-    .replace('Voivodeship', '')
-    .trim()
-    .replace(' ', '_')
-    .toLowerCase();
+  const region = mapRegion(data.results[0].components.state);
 
   store.commit('setLocation', {
     timestamp: timestamp,
@@ -20,6 +15,18 @@ async function success(pos) {
     country: countryCode,
     region: region,
   });
+}
+
+const mapRegion = (state) => {
+  let region = state;
+
+  region = region.toLowerCase();
+  region = region.replace('voivodeship', '');
+  region = region.replace('region of', '');
+  region = region.trim();
+  region = region.replace(' ', '_');
+
+  return region;
 }
 
 const mapCountryCode = (code) => {

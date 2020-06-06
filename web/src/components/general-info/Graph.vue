@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <v-card
+      v-if="last30DaysRegionInfections"
       class="mx-auto text-center"
       color="primary"
       dark

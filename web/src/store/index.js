@@ -13,6 +13,7 @@ export default new Vuex.Store({
     categories: [],
     PL: [],
     CS: [],
+    SK: [],
     data: {
       PL: [],
       CS: [],
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     },
     setCS(state, CS) {
       state.CS = CS;
+    },
+    setSK(state, SK) {
+      state.SK = SK;
     },
     setPLData(state, PLData) {
       state.data.PL = PLData;

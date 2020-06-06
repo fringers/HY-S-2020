@@ -1,5 +1,5 @@
 export const localRegionToENRegion = (item) => {
-  const name = item.region || item.name;
+  const name = item.region || item.name || item.county;
 
   switch (name) {
     case 'mazowieckie':
@@ -9,6 +9,9 @@ export const localRegionToENRegion = (item) => {
 
     case 'Hlavní město Praha':
       return 'prague';
+
+    case 'Bratislavský kraj':
+      return 'bratislava';
   }
 
   return name;
@@ -47,6 +50,7 @@ export const getRegionStats = (stats, region) => {
     return null;
   }
 
+  console.log(stats)
   if (stats.deceasedByRegion) {
     const deceased = stats.deceasedByRegion
       .find(item => localRegionToENRegion(item) === region);
@@ -56,6 +60,14 @@ export const getRegionStats = (stats, region) => {
     return {
       infectedCount: infected.value,
       deceasedCount: deceased.value,
+    };
+  } else if (stats.infectedByCounty) {
+    const result = stats.infectedByCounty
+      .find(item => localRegionToENRegion(item) === region);
+
+    return {
+      infectedCount: result.infectedCount,
+      deceasedCount: null,
     };
   } else {
     const result = stats.infectedByRegion
@@ -73,7 +85,8 @@ export const getCurrentRegionsStats = (data, region) => {
     return null;
   }
 
-  const currentStats = data[data.length - 1];
+  // console.log(data, region)
+  let currentStats = data[data.length - 1];
   return getRegionStats(currentStats, region);
 }
 
@@ -89,8 +102,8 @@ export const getLastRegionsStats = (data, region) => {
 export const getInfectedChange = (data, region) => {
   const current = getCurrentRegionsStats(data, region);
   const last = getLastRegionsStats(data, region);
-  if (!current || !last) {
-    return '0';
+  if (!current || !last || !current.infectedCount) {
+    return null;
   }
 
   const diff = current.infectedCount - last.infectedCount;
@@ -100,8 +113,8 @@ export const getInfectedChange = (data, region) => {
 export const getDeceasedChange = (data, region) => {
   const current = getCurrentRegionsStats(data, region);
   const last = getLastRegionsStats(data, region);
-  if (!current || !last) {
-    return '0';
+  if (!current || !last || !current.deceasedCount) {
+    return null;
   }
 
   const diff = current.deceasedCount - last.deceasedCount;

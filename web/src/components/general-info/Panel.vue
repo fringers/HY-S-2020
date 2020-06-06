@@ -19,15 +19,17 @@
       <v-row class="subtitle-1 primary--text font-weight-medium">
         {{ region }}
       </v-row>
-      <v-row v-if="regionCurrentStatus && regionLastStatus">
+      <v-row v-if="regionCurrentStatus">
         <div class="d-flex flex-row pt-2">
           <Numbers
+            v-if="regionCurrentStatus.infectedCount && infectedChange"
             img="/imgs/fever.png"
             :value="regionCurrentStatus.infectedCount"
             :changes="infectedChange"
           />
 <!--          <Numbers icon="💪" :value="1504" changes="+5" :inverted-color="true" />-->
           <Numbers
+            v-if="regionCurrentStatus.deceasedCount && deceasedChange"
             img="/imgs/rip.png"
             :value="regionCurrentStatus.deceasedCount"
             :changes="deceasedChange"

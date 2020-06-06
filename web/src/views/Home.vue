@@ -74,6 +74,10 @@ export default {
           value: 'CS',
           text: this.$t('country.CS'),
         },
+        {
+          value: 'SK',
+          text: this.$t('country.SK'),
+        },
       ];
     }
   },

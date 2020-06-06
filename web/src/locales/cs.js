@@ -2,12 +2,14 @@ export default {
   country: {
     label: "Země",
     PL: 'Polsko',
-    CS: 'Česká'
+    CS: 'Česká',
+    SK: 'Slovensko'
   },
   province: {
     masovian: 'Mazowieckie',
     lesser_poland: 'Malopolsko',
-    prague: 'Praha'
+    prague: 'Praha',
+    bratislava: 'Bratislava'
   },
   search: {
     label: "Vyhledávání..."

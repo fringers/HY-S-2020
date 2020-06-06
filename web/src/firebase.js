@@ -32,6 +32,11 @@ CSRef.on("value", snapshot => {
   store.commit('setCS', snapshot.val());
 });
 
+const SKRef = dbRef.child('SK');
+SKRef.on("value", snapshot => {
+  store.commit('setSK', snapshot.val());
+});
+
 const PLDataRef = dbRef.child('PL-data');
 PLDataRef.on("value", snapshot => {
   store.commit('setPLData', snapshot.val());
