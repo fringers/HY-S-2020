@@ -8,40 +8,8 @@ import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'leaflet/dist/leaflet.css';
-
-
-import * as firebase from "firebase/app";
-import "firebase/database";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAO1d2EL3qFxCAIUi-T7j3FfS9sSzcmSmg",
-  authDomain: "hy-s-2020.firebaseapp.com",
-  databaseURL: "https://hy-s-2020.firebaseio.com",
-  projectId: "hy-s-2020",
-  storageBucket: "hy-s-2020.appspot.com",
-  messagingSenderId: "532228461078",
-  appId: "1:532228461078:web:639107890f0a378f60db37"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const dbRef = firebase.database().ref();
-
-const PLRef = dbRef.child('PL');
-PLRef.on("value", snapshot => {
-  store.commit('setPL', snapshot.val());
-});
-
-const CSRef = dbRef.child('CS');
-CSRef.on("value", snapshot => {
-  store.commit('setCS', snapshot.val());
-});
-
-const PLDataRef = dbRef.child('PL-data');
-PLDataRef.on("value", snapshot => {
-  store.commit('setPLData', snapshot.val());
-});
-
+import './firebase';
+import './location';
 
 Vue.config.productionTip = false
 

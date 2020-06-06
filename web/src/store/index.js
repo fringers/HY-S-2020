@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     lang: 'EN',
     country: 'PL',
+    location: null,
     toolbarTitle: '',
     PL: null,
     CS: null,
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     setCountry(state, country) {
       state.country = country;
+    },
+    setLocation(state, location) {
+      state.location = location;
     },
     setToolbarTitle(state, title) {
       state.toolbarTitle = title;

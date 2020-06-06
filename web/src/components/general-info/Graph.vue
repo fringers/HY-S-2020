@@ -29,43 +29,30 @@
 
 <script>
 
+  import { getLastXDaysRegionInfections } from '@/helpers';
+
   export default {
     computed: {
+      location () {
+        return this.$store.state.location;
+      },
       country () {
-        // TODO: get from device location
-        return this.$t('country.PL');
+        if (!this.location) {
+          return '';
+        }
+        return this.$t('country.' + this.location.country);
       },
       region () {
-        // TODO: get from device location
-        return this.$t('province.masovian');
-      },
-      last30DaysStats() {
-        const data = this.$store.state.PLData;
-        if (!data || !data.length) {
-          return null;
+        if (!this.location) {
+          return '';
         }
-
-        return data.slice(Math.max(data.length - 7, 0))
-      },
-      last30DaysRegionStats() {
-        // TODO: get from device location
-        const region = 'mazowieckie';
-        const data = this.last30DaysStats;
-        if (!data || !data.length) {
-          return null;
-        }
-
-        return data
-          .map(item => item.infectedByRegion
-            .find(item => item.region === region));
+        return this.$t('province.' + this.location.region);
       },
       last30DaysRegionInfections() {
-        const data = this.last30DaysRegionStats;
-        if (!data || !data.length) {
+        if (!this.location) {
           return null;
         }
-
-        return data.map(item => item.infectedCount);
+        return getLastXDaysRegionInfections(this.$store.state.PLData, this.location.region);
       },
     }
   }
