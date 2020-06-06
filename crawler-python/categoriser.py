@@ -3,12 +3,29 @@ from firebase_config import config
 from categories_cons import categories
 
 
+def categorise_hu_content(content):
+    hu_categories = {
+        1: ['méteres', 'eszközökön', 'stentiszteletek'],
+        2: ['egyetemek', 'idősotthonok'],
+        4: ['üzlet', 'parkok', 'piacok'],
+        5: ['tömegrendezvények', 'sportrendezvények', 'fürdők', 'múzeumok'],
+    }
+    for categoryId, keywords in hu_categories.items():
+        if any(keyword in content for keyword in keywords):
+            return categoryId
+    return 0
+
 if __name__ == '__main__':
     firebase = pyrebase.initialize_app(config)
     token = firebase.auth()
     db = firebase.database()
 
     db.child("CATEGORIES").set(categories)
+
+    sections = db.child('HU').get()
+    for section in sections.each():
+        id = section.val()["id"]
+        db.child("HU").child(id).update({'categoryId': categorise_hu_content(section.val()["content"]["HU"])})
 
     sections = db.child("PL").get()
     for section in sections.each():
@@ -56,7 +73,7 @@ if __name__ == '__main__':
         else:
             categoryId = 0
 
-       db.child("CS").child(id).update({"categoryId": categoryId})
+        db.child("CS").child(id).update({"categoryId": categoryId})
 
     sections = db.child("SK").get()
     for section in sections.each():
