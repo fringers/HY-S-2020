@@ -4,19 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"unicode"
 
 	"github.com/gocolly/colly/v2"
 )
-
-func IsUpper(s string) bool {
-	for _, r := range s {
-		if !unicode.IsUpper(r) && unicode.IsLetter(r) {
-			return false
-		}
-	}
-	return true
-}
 
 func isHeaderH3(e colly.HTMLElement) bool {
 	return e.Name == "h3"
