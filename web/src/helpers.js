@@ -50,7 +50,6 @@ export const getRegionStats = (stats, region) => {
     return null;
   }
 
-  console.log(stats)
   if (stats.deceasedByRegion) {
     const deceased = stats.deceasedByRegion
       .find(item => localRegionToENRegion(item) === region);
