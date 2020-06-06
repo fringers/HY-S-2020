@@ -1,6 +1,8 @@
 import store from './store'
 
 async function success(pos) {
+  const timestamp = new Date();
+
   const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${pos.coords.latitude}+${pos.coords.longitude}&key=79b5572531994a5b946ecc5ec1463471`);
   const data = await response.json();
 
@@ -13,6 +15,7 @@ async function success(pos) {
     .toLowerCase();
 
   store.commit('setLocation', {
+    timestamp: timestamp,
     coords: pos.coords,
     country: countryCode,
     region: region,

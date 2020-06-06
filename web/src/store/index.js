@@ -24,6 +24,10 @@ export default new Vuex.Store({
       state.country = country;
     },
     setLocation(state, location) {
+      if (state.location && state.location.timestamp > location.timestamp) {
+        return;
+      }
+
       if (!state.location || (
         state.location.country !== location.country
         && location.country !== state.country
