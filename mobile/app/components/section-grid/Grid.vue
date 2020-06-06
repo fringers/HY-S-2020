@@ -1,11 +1,11 @@
 <template>
   <StackLayout>
-    <RadListView for="item in itemList"
+    <RadListView for="item in titles"
                  layout="grid"
                  gridSpanCount="2"
                  @itemTap="onItemTap">
       <v-template>
-        <SectionTile :label="item.text" />
+        <SectionTile :label="item.title" />
       </v-template>
     </RadListView>
   </StackLayout>
@@ -22,24 +22,20 @@
     data () {
       return {
         sectionPage: SectionPage,
-        itemList: [
-          {
-            text: 'ŻYCIE SPOŁECZNE'
-          },
-          {
-            text: 'OPIEKA I EDUKACJA'
-          },
-          {
-            text: 'GRANICE I RUCH MIĘDZYNARODOWY'
-          },
-          {
-            text: 'GOSPODARKA'
-          },
-          {
-            text: 'SPORT I REKREACJA'
-          },
-        ],
       };
+    },
+    computed: {
+      titles () {
+        const titles = [];
+        global.PL.value.forEach((item => {
+          titles.push({
+            id: item.id,
+            title: item.title.pl,
+          });
+        }));
+
+        return titles;
+      },
     },
     methods: {
       onItemTap () {
