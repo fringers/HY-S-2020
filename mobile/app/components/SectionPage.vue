@@ -8,7 +8,7 @@
     </ActionBar>
     <StackLayout class="content-panel">
 
-      <HtmlView :html="content" />
+      <HtmlView :html="content" class="html-view" />
     </StackLayout>
   </Page>
 </template>
@@ -58,5 +58,9 @@
     vertical-align: top;
     font-size: 20;
     margin: 16;
+  }
+
+  .html-view {
+    font-size: 16;
   }
 </style>
