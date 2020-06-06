@@ -16,7 +16,7 @@
       <v-row class="body-2">
         {{ country }}
       </v-row>
-      <v-row class="subtitle-1 primary--text font-weight-medium">
+      <v-row v-if="region" class="subtitle-1 primary--text font-weight-medium">
         {{ region }}
       </v-row>
       <v-row v-if="regionCurrentStatus">
@@ -81,7 +81,7 @@
         return this.$t('country.' + this.location.country);
       },
       region () {
-        if (!this.location) {
+        if (!this.location || !this.location.region) {
           return '';
         }
         return this.$t('province.' + this.location.region);

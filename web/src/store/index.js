@@ -14,13 +14,41 @@ export default new Vuex.Store({
     PL: [],
     CS: [],
     SK: [],
+    HU: [],
     data: {
       PL: [],
       CS: [],
       SK: [],
+      HU: [],
     },
     notification: null,
     categoryChangeHighlight: [],
+  },
+  actions: {
+    locationUpdate ({ state, commit }, location) {
+      if (state.location && state.location.timestamp > location.timestamp) {
+        return;
+      }
+
+      if (!state.location || (
+        state.location.country !== location.country
+        && location.country !== state.country
+      )) {
+        if (state.location) {
+          commit('addNotification', {
+            id: Date.now(),
+            name: 'LOC-CHANGED-' + state.country,
+            title: 'Przekroczono granicę',
+            body: 'W tym kraju obowiązuję inne obostrzenia. Zapoznaj się z nimi w poszczególnych kagegoriach.',
+            tag: '',
+          });
+        }
+
+        commit('setCountry', location.country);
+      }
+
+      commit('setLocation', location);
+    }
   },
   mutations: {
     setLang(state, lang) {
@@ -31,16 +59,6 @@ export default new Vuex.Store({
       state.country = country;
     },
     setLocation(state, location) {
-      if (state.location && state.location.timestamp > location.timestamp) {
-        return;
-      }
-
-      if (!state.location || (
-        state.location.country !== location.country
-        && location.country !== state.country
-      )) {
-        state.country = location.country;
-      }
       state.location = location;
     },
     setToolbarTitle(state, title) {
@@ -58,6 +76,9 @@ export default new Vuex.Store({
     setSK(state, SK) {
       state.SK = SK;
     },
+    setHU(state, HU) {
+      state.HU = HU;
+    },
     setPLData(state, PLData) {
       state.data.PL = PLData;
     },
@@ -66,6 +87,9 @@ export default new Vuex.Store({
     },
     setSKData(state, SKData) {
       state.data.SK = SKData;
+    },
+    setHUData(state, HUData) {
+      state.data.HU = HUData;
     },
     clearNotifications(state) {
       state.notification = null;
