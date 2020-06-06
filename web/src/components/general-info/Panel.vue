@@ -111,8 +111,6 @@
           return '0';
         }
 
-        console.log(this.regionLastStatus);
-        console.log(this.regionCurrentStatus);
         const diff = this.regionCurrentStatus.deceasedCount - this.regionLastStatus.deceasedCount;
         return this.numToStr(diff)
       },
