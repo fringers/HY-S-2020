@@ -7,9 +7,9 @@ from google.cloud import translate_v2 as translate
 translate_client = translate.Client()
 
 destLangs = [
-   "sk",
-   "hu",
-   "cs",
+    "sk",
+    "hu",
+    "cs",
     "en",
     "pl",
 ]
@@ -35,5 +35,18 @@ def translate(srcLang, element):
     
         output[destLang.upper()] = copyElement.prettify()
     print(output)
+    return output
+
+
+def translate_str(srcLang, txt):
+    output = {}
+    for destLang in destLangs:
+        if srcLang == destLang:
+            output[destLang.upper()] = txt
+            continue
+        output[destLang.upper] = translate_client.translate(
+                txt,
+                source_language=srcLang,
+                target_language=destLang)['translatedText']
     return output
 
