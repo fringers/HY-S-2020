@@ -5,7 +5,9 @@ export default {
     CS: 'Czech'
   },
   province: {
-    masovian: "Masovian"
+    masovian: 'Masovian',
+    lesser_poland: 'Lesser poland',
+    prague: 'Prague'
   },
   search: {
     label: "Search..."

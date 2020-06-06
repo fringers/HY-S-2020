@@ -5,7 +5,9 @@ export default {
     CS: 'Česká'
   },
   province: {
-    masovian: "Mazowieckie"
+    masovian: 'Mazowieckie',
+    lesser_poland: 'Malopoľsko',
+    prague: 'Praha'
   },
   search: {
     label: "Vyhľadávanie..."
