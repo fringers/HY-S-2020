@@ -1,11 +1,14 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 
+	firebase "firebase.google.com/go"
 	"github.com/gocolly/colly/v2"
+	"google.golang.org/api/option"
 )
 
 func isHeaderH3(e colly.HTMLElement) bool {
@@ -17,8 +20,9 @@ func isContentList(e colly.HTMLElement) bool {
 }
 
 type Section struct {
-	Header  string
-	Content string
+	Id      int    `json:"id"`
+	Header  string `json:"header"`
+	Content string `json:"content"`
 }
 
 func main() {
@@ -29,7 +33,7 @@ func main() {
 		// colly.Async(false),
 	)
 
-	var sections []Section
+	var sections = make(map[int]Section)
 
 	var elements []colly.HTMLElement
 
@@ -46,19 +50,22 @@ func main() {
 
 	c.Wait()
 
-	for _, v := range elements {
+	count := 0
+	for i, v := range elements {
+
 		if isHeaderH3(v) {
-			sections = append(sections, Section{Header: v.Text})
+			sections[count] = Section{Id: count, Header: v.Text}
 		}
 
 		if isContentList(v) {
 			if len(sections) == 0 {
-				sections = append(sections, Section{Content: v.Text})
+				sections[count] = Section{Id: i, Content: v.Text}
 			} else {
-				sections[len(sections)-1].Content = v.Text
+				s := sections[count-1]
+				s.Content = v.Text
 			}
 		}
-
+		count++
 	}
 
 	j, err := json.Marshal(sections)
@@ -67,4 +74,26 @@ func main() {
 	}
 
 	fmt.Print(string(j))
+
+	ctx := context.Background()
+
+	config := &firebase.Config{
+		DatabaseURL: "https://hy-s-2020.firebaseio.com/",
+	}
+
+	opt := option.WithCredentialsFile("hy-s-2020-firebase-adminsdk-zspif-2b122965cd.json")
+	app, err := firebase.NewApp(context.Background(), config, opt)
+	if err != nil {
+		log.Fatalf("error initializing app: %v\n", err)
+	}
+
+	client, err := app.Database(ctx)
+	if err != nil {
+		log.Fatal("failed to return database client:", err)
+	}
+
+	err = client.NewRef("SK/").Set(ctx, sections)
+	if err != nil {
+		log.Fatal("failed to set data: ", err)
+	}
 }

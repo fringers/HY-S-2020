@@ -1,11 +1,6 @@
 <template>
   <Page>
-    <ActionBar>
-      <StackLayout orientation="horizontal">
-        <Image src="~/assets/logo.png" width="40" height="40" class="logo" />
-        <Label :text="title" class="title" />
-      </StackLayout>
-    </ActionBar>
+    <Header :title="title" />
     <StackLayout class="content-panel">
 
       <HtmlView :html="content" class="html-view" />
@@ -14,8 +9,13 @@
 </template>
 
 <script>
+  import Header from './Header.vue';
+
   export default {
     props: ['id'],
+    components: {
+      Header,
+    },
     computed: {
       item () {
         const PL = this.$store.state.PL;
@@ -44,16 +44,6 @@
 </script>
 
 <style scoped>
-  .logo {
-    horizontal-alignment: right;
-    vertical-alignment: center;
-  }
-
-  .title {
-    vertical-alignment: center;
-    font-size: 26;
-  }
-
   .content-panel {
     vertical-align: top;
     font-size: 20;
