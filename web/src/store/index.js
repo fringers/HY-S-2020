@@ -48,6 +48,19 @@ export default new Vuex.Store({
       }
 
       commit('setLocation', location);
+    },
+    processNotification ({ commit }, notification) {
+      if (notification.type === 'change-cat') {
+        const id = notification.categoryId;
+        commit('addCategoryChangeHighlight', Number(id));
+
+        notification.title = i18n.t('notifications.changeCat.title');
+        notification.body = i18n.t('notifications.changeCat.text.' + notification.country);
+      }
+
+      if (notification.title && notification.body) {
+        commit('addNotification', notification);
+      }
     }
   },
   mutations: {
@@ -95,13 +108,10 @@ export default new Vuex.Store({
       state.notification = null;
     },
     addNotification(state, notification) {
-      console.log("Message received. ", notification);
       state.notification = notification;
-
-      if (notification.name && notification.name.startsWith('PL-change-cat-')) {
-        const id = notification.name[notification.name.length - 1];
-        Vue.set(state.categoryChangeHighlight, Number(id),  true);
-      }
+    },
+    addCategoryChangeHighlight(state, categoryId) {
+      Vue.set(state.categoryChangeHighlight, categoryId,  true);
     },
     clearCategoryChangeHighlight(state, categoryId) {
       Vue.set(state.categoryChangeHighlight, categoryId,  false);
