@@ -1,7 +1,20 @@
 import Vue from 'nativescript-vue';
+import Vuex from 'vuex'
 import RadListView from 'nativescript-ui-listview/vue';
 
+Vue.use(Vuex)
 Vue.use(RadListView);
+
+const store = new Vuex.Store({
+  state: {
+    PL: null,
+  },
+  mutations: {
+    setPL(state, PL) {
+      state.PL = PL;
+    },
+  }
+});
 
 import MainPage from './components/MainPage.vue';
 
@@ -21,13 +34,13 @@ firebase.init({
   instance => {
     try {
       firebase.getValue('/PL')
-        .then(result => global.PL = result)
+        .then(result => store.commit('setPL', result))
         .catch(error => console.log("Error: " + error));
     } catch (e) {
       console.log(e);
     }
   },
-);
+).catch(error => console.log("Error: " + error));
 
 Vue.prototype.$firebase = firebase;
 
@@ -36,7 +49,7 @@ new Vue({
     <Frame>
       <MainPage />
     </Frame>`,
-
+  store: store,
   components: {
     MainPage
   },

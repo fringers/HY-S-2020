@@ -3,9 +3,9 @@
     <RadListView for="item in titles"
                  layout="grid"
                  gridSpanCount="2"
-                 @itemTap="onItemTap">
+                 @itemTap="onItemTap($event)">
       <v-template>
-        <SectionTile :label="item.title" />
+        <SectionTile :label="item" />
       </v-template>
     </RadListView>
   </StackLayout>
@@ -26,20 +26,26 @@
     },
     computed: {
       titles () {
+        const PL = this.$store.state.PL;
+        if (!PL) {
+          return [];
+        }
+
         const titles = [];
-        global.PL.value.forEach((item => {
-          titles.push({
-            id: item.id,
-            title: item.title.pl,
-          });
+        PL.value.forEach((item => {
+          titles.push(item.title.pl);
         }));
 
         return titles;
       },
     },
     methods: {
-      onItemTap () {
-        this.$navigateTo(this.sectionPage)
+      onItemTap ($event) {
+        this.$navigateTo(this.sectionPage, {
+          props: {
+            id: $event.index,
+          }
+        })
       }
     }
   }

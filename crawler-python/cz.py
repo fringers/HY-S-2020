@@ -3,14 +3,9 @@ import urllib.request
 import json
 from pprint import pprint
 from firebase_config import config
+from translate import translate
 import pyrebase
-
-def build_section(id_, name, content):
-    return {
-      'id': id_,
-      'name': name,
-      'content': content,
-    }
+from build_section import build_section
 
 if __name__ == '__main__':
     firebase = pyrebase.initialize_app(config)
@@ -28,13 +23,21 @@ if __name__ == '__main__':
     output = {}
     id_ = 0
     for section, nextSection in sections:
-        all_content = ''
         content = section.findNext('p')
+        all_content = {}
         while content != nextSection:
-            all_content += content.prettify()
+            for lang, translated_content in translate("en", content):
+                if lang in all_content:
+                    all_content[lang] += translated_content
+                else:
+                    all_content[lang] = translated_content
             content = content.findNext(['p', 'ul'])
-        output[id_] = build_section(id_, section.text, all_content)
+        output[id_] = build_section(
+          id_,
+          translate("en", section),
+          all_content
+        )
         id_ += 1
-    json.dumps({'CZ': output})
+    json.dumps({'CS': output})
 
-    db.child('CZ').set(output)
+    db.child('CS').set(output)
