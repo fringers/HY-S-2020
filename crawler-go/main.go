@@ -33,7 +33,7 @@ func main() {
 		// colly.Async(false),
 	)
 
-	var sections = make(map[int]Section)
+	var sections = make(map[int]*Section)
 
 	var elements []colly.HTMLElement
 
@@ -52,20 +52,19 @@ func main() {
 
 	count := 0
 	for i, v := range elements {
-
 		if isHeaderH3(v) {
-			sections[count] = Section{Id: count, Header: v.Text}
+			sections[count] = &Section{Id: count, Header: v.Text}
+			count++
 		}
 
 		if isContentList(v) {
 			if len(sections) == 0 {
-				sections[count] = Section{Id: i, Content: v.Text}
+				sections[count] = &Section{Id: i, Content: v.Text}
+				count++
 			} else {
-				s := sections[count-1]
-				s.Content = v.Text
+				sections[count-1].Content = v.Text
 			}
 		}
-		count++
 	}
 
 	j, err := json.Marshal(sections)
