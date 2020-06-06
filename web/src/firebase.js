@@ -2,6 +2,7 @@ import store from './store'
 
 import * as firebase from "firebase/app";
 import "firebase/database";
+import "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAO1d2EL3qFxCAIUi-T7j3FfS9sSzcmSmg",
@@ -17,8 +18,44 @@ firebase.initializeApp(firebaseConfig);
 
 const dbRef = firebase.database().ref();
 
+const messaging = firebase.messaging();
+messaging.usePublicVapidKey("BFq3DRJCqS4eVrXXcdoz3LenuCZs2qPm1Oi2RMugux5LhA08urnNIlPdUj5_59LhRxRffWi6FeCkfvyUdTXoZcg");
+
+messaging.getToken().then((currentToken) => {
+  if (currentToken) {
+    saveToken(currentToken);
+  } else {
+    console.log('No Instance ID token available. Request permission to generate one.');
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+});
+
+messaging.onTokenRefresh(() => {
+  messaging.getToken().then((refreshedToken) => {
+    console.log('Token refreshed.');
+    saveToken(refreshedToken);
+  }).catch((err) => {
+    console.log('Unable to retrieve refreshed token ', err);
+  });
+});
+
+const saveToken = (token) => {
+  console.log(token);
+  dbRef.child('FCM-TOKENS/' + token).set({
+    app: 'web',
+    token: token,
+  });
+};
+
+messaging.onMessage(function(payload) {
+  console.log("Message received. ", payload);
+  // ...
+});
+
+
 const categoriesRef = dbRef.child('CATEGORIES');
-categoriesRef.on("value", snapshot => {
+categoriesRef.once("value", snapshot => {
   store.commit('setCategories', snapshot.val());
 });
 
