@@ -12,18 +12,26 @@
       />
     </l-map>
 
-    <v-container class="content px-6">
+    <v-container class="content px-10">
       <v-row class="body-2">
         {{ country }}
       </v-row>
       <v-row class="subtitle-1 primary--text font-weight-medium">
         {{ region }}
       </v-row>
-      <v-row>
+      <v-row v-if="regionCurrentStatus && regionLastStatus">
         <div class="d-flex flex-row pt-2">
-          <Numbers icon="😷" :value="3123" changes="+15" />
-          <Numbers icon="💪" :value="1504" changes="+5" :inverted-color="true" />
-          <Numbers icon="💀" :value="120" changes="+8" />
+          <Numbers
+            img="/imgs/fever.png"
+            :value="regionCurrentStatus.infectedCount"
+            :changes="infectedChange"
+          />
+<!--          <Numbers icon="💪" :value="1504" changes="+5" :inverted-color="true" />-->
+          <Numbers
+            img="/imgs/rip.png"
+            :value="regionCurrentStatus.deceasedCount"
+            :changes="deceasedChange"
+          />
         </div>
       </v-row>
     </v-container>
@@ -36,6 +44,8 @@
 
   import Numbers from "./Numbers.vue";
 
+  import { getCurrentRegionsStats, getLastRegionsStats, getInfectedChange, getDeceasedChange } from '@/helpers';
+
   export default {
     components: {
       LMap,
@@ -45,7 +55,6 @@
     data() {
       return {
         zoom: 10,
-        center: latLng(52.2330653, 20.921113),
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         showMap: true,
         mapOptions: {
@@ -54,12 +63,57 @@
       };
     },
     computed: {
+      location () {
+        return this.$store.state.location;
+      },
+      center () {
+        if (!this.location) {
+          return latLng(0, 0);
+        }
+        return latLng(this.location.coords.latitude, this.location.coords.longitude);
+      },
       country () {
-        return this.$t('country.PL');
+        if (!this.location) {
+          return '';
+        }
+        return this.$t('country.' + this.location.country);
       },
       region () {
-        return this.$t('province.masovian');
-      }
+        if (!this.location) {
+          return '';
+        }
+        return this.$t('province.' + this.location.region);
+      },
+      countryData () {
+        if (!this.location) {
+          return [];
+        }
+        return this.$store.state.data[this.location.country];
+      },
+      regionCurrentStatus() {
+        if (!this.location) {
+          return null;
+        }
+        return getCurrentRegionsStats(this.countryData, this.location.region);
+      },
+      regionLastStatus() {
+        if (!this.location) {
+          return null;
+        }
+        return getLastRegionsStats(this.countryData, this.location.region);
+      },
+      infectedChange() {
+        if (!this.location) {
+          return null;
+        }
+        return getInfectedChange(this.countryData, this.location.region);
+      },
+      deceasedChange() {
+        if (!this.location) {
+          return null;
+        }
+        return getDeceasedChange(this.countryData, this.location.region);
+      },
     },
   }
 </script>
@@ -79,7 +133,6 @@
   .content {
     height: 140px;
     background-color: rgba(255, 255, 255, 0.6);
-    /*opacity: 0.3;*/
     position: relative;
   }
 </style>

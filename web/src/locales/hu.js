@@ -5,7 +5,9 @@ export default {
     CS: 'Cseh'
   },
   province: {
-    masovian: "Mazowieckie"
+    masovian: 'Mazowieckie',
+    lesser_poland: 'Kis-Lengyelország',
+    prague: 'Prága'
   },
   search: {
     label: "Keresés..."

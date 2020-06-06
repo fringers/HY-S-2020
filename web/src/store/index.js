@@ -8,9 +8,16 @@ export default new Vuex.Store({
   state: {
     lang: 'EN',
     country: 'PL',
+    location: null,
     toolbarTitle: '',
-    PL: null,
-    CS: null,
+    categories: [],
+    PL: [],
+    CS: [],
+    data: {
+      PL: [],
+      CS: [],
+      SK: [],
+    }
   },
   mutations: {
     setLang(state, lang) {
@@ -20,14 +27,39 @@ export default new Vuex.Store({
     setCountry(state, country) {
       state.country = country;
     },
+    setLocation(state, location) {
+      if (state.location && state.location.timestamp > location.timestamp) {
+        return;
+      }
+
+      if (!state.location || (
+        state.location.country !== location.country
+        && location.country !== state.country
+      )) {
+        state.country = location.country;
+      }
+      state.location = location;
+    },
     setToolbarTitle(state, title) {
       state.toolbarTitle = title;
+    },
+    setCategories(state, categories) {
+      state.categories = categories;
     },
     setPL(state, PL) {
       state.PL = PL;
     },
     setCS(state, CS) {
       state.CS = CS;
+    },
+    setPLData(state, PLData) {
+      state.data.PL = PLData;
+    },
+    setCSData(state, CSData) {
+      state.data.CS = CSData;
+    },
+    setSKData(state, SKData) {
+      state.data.SK = SKData;
     },
   }
 })

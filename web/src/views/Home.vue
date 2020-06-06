@@ -1,6 +1,20 @@
 <template>
   <div class="home">
-    <Panel />
+
+    <v-carousel
+      height="150"
+      hide-delimiter-background
+      hide-delimiters
+      show-arrows-on-hover
+    >
+      <v-carousel-item>
+        <Panel />
+      </v-carousel-item>
+
+      <v-carousel-item>
+        <Graph />
+      </v-carousel-item>
+    </v-carousel>
 
     <v-container>
       <v-row no-gutters>
@@ -33,12 +47,14 @@
 
 <script>
 import Panel from "@/components/general-info/Panel.vue";
-import Grid from "@/components/section-grid/Grid.vue";
+import Graph from "@/components/general-info/Graph.vue";
+import Grid from "@/components/categories-grid/Grid.vue";
 
 export default {
   name: 'Home',
   components: {
     Panel,
+    Graph,
     Grid,
   },
   created() {

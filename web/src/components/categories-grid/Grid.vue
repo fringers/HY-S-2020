@@ -6,35 +6,25 @@
         :key="item.id"
         cols="6"
       >
-        <SectionTile :item="item" />
+        <CategoryTile :item="item" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  import SectionTile from "./SectionTile.vue";
+  import CategoryTile from "./CategoryTile.vue";
 
   export default {
     components: {
-      SectionTile,
+      CategoryTile,
     },
     computed: {
       country () {
         return this.$store.state.country;
       },
       items () {
-        const data = this.$store.state[this.country];
-        if (!data) {
-          return [];
-        }
-
-        const items = [];
-        data.forEach((item => {
-          items.push(item);
-        }));
-
-        return items;
+        return this.$store.state.categories;
       },
     },
   }
