@@ -5,7 +5,8 @@ from categories_cons import categories
 
 def categorise_hu_content(content):
     hu_categories = {
-        1: ['méteres', 'eszközökön', 'stentiszteletek'],
+        0: ['eszközökön',],
+        1: ['méteres', 'stentiszteletek'],
         2: ['egyetemek', 'idősotthonok'],
         4: ['üzlet', 'parkok', 'piacok'],
         5: ['tömegrendezvények', 'sportrendezvények', 'fürdők', 'múzeumok'],
