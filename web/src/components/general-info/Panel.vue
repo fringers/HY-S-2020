@@ -23,12 +23,14 @@
     components: {
       Numbers,
     },
-    data () {
-      return {
-        country: 'Polska',
-        region: 'Mazowieckie',
-      };
-    },
+    computed: {
+      country () {
+        return this.$t('country.PL');
+      },
+      region () {
+        return this.$t('province.masovian');
+      }
+    }
   }
 </script>
 

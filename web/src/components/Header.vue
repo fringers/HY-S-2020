@@ -46,6 +46,7 @@
               :src="langIconUrl(item.short)"
               max-height="30"
               max-width="30"
+              class="flag"
             />
           </v-list-item-icon>
           <v-list-item-title>
@@ -64,10 +65,10 @@
       return {
         langs: [
           {
-            short: 'PL',
+            short: 'EN',
           },
           {
-            short: 'EN',
+            short: 'PL',
           },
           {
             short: 'CS',

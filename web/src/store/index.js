@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { i18n } from '@/locales/index';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    lang: 'PL',
+    lang: 'EN',
     country: 'PL',
     toolbarTitle: '',
     PL: null,
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setLang(state, lang) {
+      i18n.locale = lang;
       state.lang = lang;
     },
     setCountry(state, country) {
