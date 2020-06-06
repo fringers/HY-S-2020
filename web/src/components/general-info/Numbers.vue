@@ -3,7 +3,7 @@
     <div class="title ">
       {{ icon }}  <span :class="colorClass">{{ changes }}</span>
     </div>
-    <div class="body-1 total-info" >
+    <div class="body-1 total-info font-weight-medium" >
       {{ value }}
     </div>
   </div>

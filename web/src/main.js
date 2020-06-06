@@ -7,6 +7,7 @@ import { i18n } from './locales/index';
 import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import 'leaflet/dist/leaflet.css';
 
 
 import * as firebase from "firebase/app";
