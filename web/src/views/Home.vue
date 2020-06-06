@@ -3,7 +3,7 @@
     <v-container>
       <Panel />
 
-      <v-row>
+      <v-row no-gutters>
         <v-col>
           <v-text-field
             label="Szukaj info..."
@@ -12,7 +12,7 @@
           />
         </v-col>
       </v-row>
-      <v-row>
+      <v-row no-gutters>
         <v-col>
           <Grid />
         </v-col>

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row de>
       <v-col
         v-for="item in items"
         :key="item.id"

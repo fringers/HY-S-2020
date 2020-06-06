@@ -1,11 +1,4 @@
 <template>
-<!--  <ActionBar>-->
-<!--    <StackLayout orientation="horizontal">-->
-<!--      <Image src="~/assets/logo.png" width="40" height="40" class="logo" />-->
-<!--      <Label :text="titleText" class="title" />-->
-<!--    </StackLayout>-->
-<!--  </ActionBar>-->
-
   <v-app-bar
     app
     color="white"
@@ -14,7 +7,7 @@
       <v-img
         class="shrink mr-2"
         contain
-        src="../assets/logo.png"
+        src="@/assets/logo.png"
         transition="scale-transition"
         width="40"
       />
@@ -26,20 +19,59 @@
 
     <v-spacer></v-spacer>
 
-<!--    <v-btn-->
-<!--      href="https://github.com/vuetifyjs/vuetify/releases/latest"-->
-<!--      target="_blank"-->
-<!--      text-->
-<!--    >-->
-<!--      <span class="mr-2">Latest Release</span>-->
-<!--      <v-icon>mdi-open-in-new</v-icon>-->
-<!--    </v-btn>-->
+    <v-menu
+      bottom
+      left
+    >
+      <template v-slot:activator="{ on }">
+        <v-img
+          :src="langIconUrl(lang)"
+          width="20"
+          max-height="30"
+          max-width="30"
+          contain
+          class="flag"
+          v-on="on"
+        />
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in langs"
+          :key="i"
+          @click="setLang(item)"
+        >
+          <v-list-item-icon>
+            <v-img
+              :src="langIconUrl(item.short)"
+              max-height="30"
+              max-width="30"
+            />
+          </v-list-item-icon>
+          <v-list-item-title>
+            {{ item.short }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </v-app-bar>
 </template>
 
 <script>
   export default {
     props: ['title'],
+    data () {
+      return {
+        langs: [
+          {
+            short: 'PL',
+          },
+          {
+            short: 'EN',
+          },
+        ],
+      };
+    },
     computed: {
       titleText () {
         if (this.title) {
@@ -47,11 +79,33 @@
         }
 
         return 'Super info o COVID-19';
+      },
+      lang () {
+        return this.$store.state.lang;
       }
     },
+    methods: {
+      langIconUrl(lang) {
+        switch (lang) {
+          case 'PL':
+            return '/imgs/pl.png';
+          case 'EN':
+            return  '/imgs/en.svg';
+        }
+
+        return '';
+      },
+      setLang(lang) {
+        this.$store.commit('setLang', lang.short);
+      }
+    }
   }
 </script>
 
 <style scoped>
-
+  .flag {
+    border-style: solid;
+    border-color: black !important;
+    border-width: 1px !important;
+  }
 </style>

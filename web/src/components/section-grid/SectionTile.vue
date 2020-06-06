@@ -23,8 +23,11 @@
   export default {
     props: ['item'],
     computed: {
+      lang () {
+        return this.$store.state.lang;
+      },
       text () {
-        return this.item.title.PL.replace(/<[^>]*>?/gm, '');
+        return this.item.title[this.lang].replace(/<[^>]*>?/gm, '');
       }
     },
     methods: {

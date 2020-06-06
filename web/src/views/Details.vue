@@ -16,6 +16,9 @@
       index () {
         return this.$route.params.index;
       },
+      lang () {
+        return this.$store.state.lang;
+      },
       item () {
         const PL = this.$store.state.PL;
         if (!PL) {
@@ -29,14 +32,14 @@
           return '';
         }
 
-        return this.item.title.PL;
+        return this.item.title[this.lang];
       },
       content () {
         if (!this.item) {
           return '';
         }
 
-        return this.item.content.PL;
+        return this.item.content[this.lang];
       },
     }
   }
