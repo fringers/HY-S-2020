@@ -25,7 +25,6 @@ firebase.initializeApp(firebaseConfig);
 const dbRef = firebase.database().ref();
 const PLRef = dbRef.child('PL');
 PLRef.on("value", snapshot => {
-  console.log(snapshot.val());
   store.commit('setPL', snapshot.val());
 });
 

@@ -6,7 +6,7 @@
 
     <v-card-text>
       <v-img
-        src="@/assets/logo.png"
+        src="/imgs/logo.png"
         contain
         class="icon"
       />
@@ -31,7 +31,6 @@
     },
     methods: {
       onItemTap () {
-        console.log('asdasds')
         this.$router.push({ name: 'details', params: { index: this.item.id } })
       }
     }

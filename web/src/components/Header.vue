@@ -7,7 +7,7 @@
       <v-img
         class="shrink mr-2"
         contain
-        src="@/assets/logo.png"
+        src="/imgs/logo.png"
         transition="scale-transition"
         width="40"
       />
@@ -69,6 +69,15 @@
           {
             short: 'EN',
           },
+          {
+            short: 'CS',
+          },
+          {
+            short: 'HU',
+          },
+          {
+            short: 'SK',
+          },
         ],
       };
     },
@@ -87,6 +96,12 @@
             return '/imgs/pl.png';
           case 'EN':
             return  '/imgs/en.svg';
+          case 'CS':
+            return  '/imgs/cs.svg';
+          case 'HU':
+            return  '/imgs/hu.jpg';
+          case 'SK':
+            return  '/imgs/sk.png';
         }
 
         return '';
