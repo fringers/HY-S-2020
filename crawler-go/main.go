@@ -1,46 +1,80 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
+	"unicode"
 
 	"github.com/gocolly/colly/v2"
 )
+
+func IsUpper(s string) bool {
+	for _, r := range s {
+		if !unicode.IsUpper(r) && unicode.IsLetter(r) {
+			return false
+		}
+	}
+	return true
+}
+
+func isHeaderH3(e colly.HTMLElement) bool {
+	return e.Name == "h3"
+}
+
+func isContentList(e colly.HTMLElement) bool {
+	return e.Name == "ul"
+}
+
+type Section struct {
+	Header  string
+	Content string
+}
 
 func main() {
 	// Instantiate default collector
 	c := colly.NewCollector(
 		// Visit only domains: hackerspaces.org, wiki.hackerspaces.org
 		colly.AllowedDomains("korona.gov.sk"),
+		// colly.Async(false),
 	)
 
-	// On every a element which has href attribute call callback
-	// c.OnHTML("a[href]", func(e *colly.HTMLElement) {
-	// 	link := e.Attr("href")
-	// 	// Print link
-	// 	fmt.Printf("Link found: %q -> %s\n", e.Text, link)
-	// 	// Visit link found on page
-	// 	// Only those links are visited which are in AllowedDomains
-	// 	c.Visit(e.Request.AbsoluteURL(link))
-	// })
+	var sections []Section
 
-	c.OnHTML("h3.govuk-heading-m", func(e *colly.HTMLElement) {
-		// link := e.Attr("h3")
-		// Print link
-		fmt.Printf("header h3 found: %s | attr: %+v\n", e.Text, e.Attr("h3.govuk-heading-m"))
-
-		fmt.Printf("child text: %s\n", e.ChildText("p"))
-		// e.ChildAttr(goquerySelector string, attrName string)
-
-		// Visit link found on page
-		// Only those links are visited which are in AllowedDomains
-		// c.Visit(e.Request.AbsoluteURL(link))
-	})
+	var elements []colly.HTMLElement
 
 	// Before making a request print "Visiting ..."
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL.String())
+	// c.OnRequest(func(r *colly.Request) {
+	// 	fmt.Println("Visiting", r.URL.String())
+	// })
+
+	c.OnHTML("h3,ul", func(e *colly.HTMLElement) {
+		elements = append(elements, *e)
 	})
 
-	// Start scraping on https://hackerspaces.org
 	c.Visit("https://korona.gov.sk/en/adopted-measures/")
+
+	c.Wait()
+
+	for _, v := range elements {
+		if isHeaderH3(v) {
+			sections = append(sections, Section{Header: v.Text})
+		}
+
+		if isContentList(v) {
+			if len(sections) == 0 {
+				sections = append(sections, Section{Content: v.Text})
+			} else {
+				sections[len(sections)-1].Content = v.Text
+			}
+		}
+
+	}
+
+	j, err := json.Marshal(sections)
+	if err != nil {
+		log.Fatalf("json marshal failed: %+v", err)
+	}
+
+	fmt.Print(string(j))
 }
