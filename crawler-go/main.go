@@ -2,21 +2,34 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"log"
 
 	firebase "firebase.google.com/go"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly/v2"
 	"google.golang.org/api/option"
 )
 
 func isHeaderH3(e colly.HTMLElement) bool {
-	return e.Name == "h3"
+	if e.Name == "h3" && e.Attr("class") == "govuk-heading-m" {
+		nextClass, _ := e.DOM.Next().Attr("class")
+
+		if nextClass == "govuk-heading-m" {
+			return false
+		}
+
+		return true
+	}
+
+	return false
 }
 
-func isContentList(e colly.HTMLElement) bool {
-	return e.Name == "ul"
+func isHeaderH2(e colly.HTMLElement) bool {
+	return e.Name == "h2" && e.Attr("class") == "govuk-heading-m"
+}
+
+func isContentParagraph(e colly.HTMLElement) bool {
+	return e.Name == "p" && e.Attr("class") == "govuk-body"
 }
 
 type Section struct {
@@ -37,42 +50,31 @@ func main() {
 
 	var elements []colly.HTMLElement
 
-	// Before making a request print "Visiting ..."
-	// c.OnRequest(func(r *colly.Request) {
-	// 	fmt.Println("Visiting", r.URL.String())
-	// })
-
-	c.OnHTML("h3,ul", func(e *colly.HTMLElement) {
-		elements = append(elements, *e)
+	c.OnHTML("h2,h3", func(e *colly.HTMLElement) {
+		if isHeaderH3(*e) || isHeaderH2(*e) {
+			elements = append(elements, *e)
+		}
 	})
 
 	c.Visit("https://korona.gov.sk/en/adopted-measures/")
 
 	c.Wait()
 
-	count := 0
-	for i, v := range elements {
-		if isHeaderH3(v) {
-			sections[count] = &Section{Id: count, Header: v.Text}
-			count++
-		}
+	for i, e := range elements {
+		var c string
+		sections[i] = &Section{Id: i, Header: e.Text}
 
-		if isContentList(v) {
-			if len(sections) == 0 {
-				sections[count] = &Section{Id: i, Content: v.Text}
-				count++
-			} else {
-				sections[count-1].Content = v.Text
-			}
-		}
+		c = setContent(e.DOM.Next(), &c)
+
+		sections[i].Content = c
 	}
 
-	j, err := json.Marshal(sections)
-	if err != nil {
-		log.Fatalf("json marshal failed: %+v", err)
-	}
+	// j, err := json.Marshal(sections)
+	// if err != nil {
+	// 	log.Fatalf("json marshal failed: %+v", err)
+	// }
 
-	fmt.Print(string(j))
+	// fmt.Print(string(j))
 
 	ctx := context.Background()
 
@@ -94,5 +96,36 @@ func main() {
 	err = client.NewRef("SK/").Set(ctx, sections)
 	if err != nil {
 		log.Fatal("failed to set data: ", err)
+	}
+}
+
+func setContent(s *goquery.Selection, c *string) string {
+	class, _ := s.Attr("class")
+
+	if class == "govuk-heading-m" || class == "idsk-footer" {
+		return *c
+	}
+
+	html, _ := s.Html()
+	tag := s.Nodes[0].Data
+
+	*c = *c + appendContent(tag, html)
+	return setContent(s.Next(), c)
+}
+
+func appendContent(tag string, html string) string {
+	switch tag {
+	case "ul":
+		return "<ul>" + html + "</ul>"
+	case "p":
+		return "<p>" + html + "</p>"
+	case "h2":
+		return "<h2>" + html + "</h2>"
+	case "h3":
+		return "<h3>" + html + "</h3>"
+	case "h4":
+		return "<h4>" + html + "</h4>"
+	default:
+		return html
 	}
 }
