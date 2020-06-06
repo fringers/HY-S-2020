@@ -36,3 +36,13 @@ const PLDataRef = dbRef.child('PL-data');
 PLDataRef.on("value", snapshot => {
   store.commit('setPLData', snapshot.val());
 });
+
+const CSDataRef = dbRef.child('CS-data');
+CSDataRef.on("value", snapshot => {
+  store.commit('setCSData', snapshot.val());
+});
+
+const SKDataRef = dbRef.child('SK-data');
+SKDataRef.on("value", snapshot => {
+  store.commit('setSKData', snapshot.val());
+});

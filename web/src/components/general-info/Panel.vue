@@ -84,29 +84,35 @@
         }
         return this.$t('province.' + this.location.region);
       },
+      countryData () {
+        if (!this.location) {
+          return [];
+        }
+        return this.$store.state.data[this.location.country];
+      },
       regionCurrentStatus() {
         if (!this.location) {
           return null;
         }
-        return getCurrentRegionsStats(this.$store.state.PLData, this.location.region);
+        return getCurrentRegionsStats(this.countryData, this.location.region);
       },
       regionLastStatus() {
         if (!this.location) {
           return null;
         }
-        return getLastRegionsStats(this.$store.state.PLData, this.location.region);
+        return getLastRegionsStats(this.countryData, this.location.region);
       },
       infectedChange() {
         if (!this.location) {
           return null;
         }
-        return getInfectedChange(this.$store.state.PLData, this.location.region);
+        return getInfectedChange(this.countryData, this.location.region);
       },
       deceasedChange() {
         if (!this.location) {
           return null;
         }
-        return getDeceasedChange(this.$store.state.PLData, this.location.region);
+        return getDeceasedChange(this.countryData, this.location.region);
       },
     },
   }

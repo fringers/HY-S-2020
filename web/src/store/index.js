@@ -13,7 +13,11 @@ export default new Vuex.Store({
     categories: [],
     PL: [],
     CS: [],
-    PLData: [],
+    data: {
+      PL: [],
+      CS: [],
+      SK: [],
+    }
   },
   mutations: {
     setLang(state, lang) {
@@ -49,7 +53,13 @@ export default new Vuex.Store({
       state.CS = CS;
     },
     setPLData(state, PLData) {
-      state.PLData = PLData;
+      state.data.PL = PLData;
+    },
+    setCSData(state, CSData) {
+      state.data.CS = CSData;
+    },
+    setSKData(state, SKData) {
+      state.data.SK = SKData;
     },
   }
 })

@@ -1,9 +1,14 @@
-export const localRegionToENRegion = (name) => {
+export const localRegionToENRegion = (item) => {
+  const name = item.region || item.name;
+
   switch (name) {
     case 'mazowieckie':
       return 'masovian';
     case 'malopolskie':
       return 'lesser_poland';
+
+    case 'Hlavní město Praha':
+      return 'prague';
   }
 
   return name;
@@ -25,7 +30,7 @@ export const getLastXDaysRegionStats = (data, region, days = 7) => {
 
   return stats
     .map(item => item.infectedByRegion
-      .find(item => localRegionToENRegion(item.region) === region));
+      .find(item => localRegionToENRegion(item) === region));
 }
 
 export const getLastXDaysRegionInfections = (data, region, days = 7) => {
@@ -37,14 +42,39 @@ export const getLastXDaysRegionInfections = (data, region, days = 7) => {
   return stats.map(item => item.infectedCount);
 }
 
+export const getRegionStats = (stats, region) => {
+  if (!stats || !region) {
+    return null;
+  }
+
+  if (stats.deceasedByRegion) {
+    const deceased = stats.deceasedByRegion
+      .find(item => localRegionToENRegion(item) === region);
+    const infected = stats.infectedByRegion
+      .find(item => localRegionToENRegion(item) === region);
+
+    return {
+      infectedCount: infected.value,
+      deceasedCount: deceased.value,
+    };
+  } else {
+    const result = stats.infectedByRegion
+      .find(item => localRegionToENRegion(item) === region);
+
+    return {
+      infectedCount: result.infectedCount,
+      deceasedCount: result.deceasedCount,
+    };
+  }
+};
+
 export const getCurrentRegionsStats = (data, region) => {
   if (!data || !data.length || !region) {
     return null;
   }
 
   const currentStats = data[data.length - 1];
-  return currentStats.infectedByRegion
-    .find(item => localRegionToENRegion(item.region) === region);
+  return getRegionStats(currentStats, region);
 }
 
 export const getLastRegionsStats = (data, region) => {
@@ -53,8 +83,7 @@ export const getLastRegionsStats = (data, region) => {
   }
 
   const currentStats = data[data.length - 3];
-  return currentStats.infectedByRegion
-    .find(item => localRegionToENRegion(item.region) === region);
+  return getRegionStats(currentStats, region);
 }
 
 export const getInfectedChange = (data, region) => {

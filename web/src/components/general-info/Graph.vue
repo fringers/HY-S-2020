@@ -48,11 +48,17 @@
         }
         return this.$t('province.' + this.location.region);
       },
+      countryData () {
+        if (!this.location) {
+          return [];
+        }
+        return this.$store.state.data[this.location.country];
+      },
       last30DaysRegionInfections() {
         if (!this.location) {
           return null;
         }
-        return getLastXDaysRegionInfections(this.$store.state.PLData, this.location.region);
+        return getLastXDaysRegionInfections(this.countryData, this.location.region);
       },
     }
   }
