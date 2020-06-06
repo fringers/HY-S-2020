@@ -1,7 +1,6 @@
 <template>
   <v-card
     class="card"
-    outlined
     @click="onItemTap"
   >
 
@@ -41,9 +40,7 @@
 
 <style scoped>
   .card {
-    border-color: #34C1AD !important;
-    border-width: 1px !important;
-    border-radius: 20px !important;
+    border-radius: 16px !important;
   }
 
   .icon {
