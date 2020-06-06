@@ -9,11 +9,12 @@ import pyrebase
 from build_section import build_section
 from categoriser import categorise_hu_content
 from pprint import pprint
+from collections import defaultdict
 
 def category_to_hu_title(categoryId):
     return {
-        1: 'Általános',
-        2: 'Oktatás',
+        0: 'Általános',
+        1: 'Oktatás',
         4: 'Gazdaság',
         5: 'Szabadidő és kultúra',
     }.get(categoryId, 'Egyéb')
@@ -28,13 +29,21 @@ if __name__ == '__main__':
 
     lines = content.find_all(['li'])
     
+    lines_by_title = defaultdict(list)
+    for line in lines:
+        title = category_to_hu_title(categorise_hu_content(line.prettify()))
+        lines_by_title[title].append(line)
+
     output = {}
     id_ = 0
-    for line in lines:
+    for title, lines in lines_by_title.items():
         output[id_] = build_section(
           id_,
-          translate_str('hu', category_to_hu_title(categorise_hu_content(line.prettify()))),
-          translate("hu", line)
+          translate_str("hu", title),
+          translate("hu",
+            BeautifulSoup('<ul>%s</ul>' % ''.join([line.prettify() for line in lines]),
+            'html.parser')
+          )
         )
         id_ += 1
     pprint(output)
