@@ -1,11 +1,6 @@
 <template>
   <Page>
-    <ActionBar>
-      <StackLayout orientation="horizontal">
-        <Image src="~/assets/logo.png" width="40" height="40" class="logo" />
-        <Label text="Super info o COVID-19" class="title" />
-      </StackLayout>
-    </ActionBar>
+    <Header />
     <StackLayout class="home-panel">
 
       <GeneralInfo />
@@ -22,11 +17,13 @@
 </template>
 
 <script>
+  import Header from './Header.vue';
   import GeneralInfo from "./general-info/Panel.vue";
   import Grid from "./section-grid/Grid.vue";
 
   export default {
     components: {
+      Header,
       GeneralInfo,
       Grid,
     },
@@ -57,20 +54,9 @@
 </script>
 
 <style scoped>
-  .logo {
-    horizontal-alignment: right;
-    vertical-alignment: center;
-  }
-
-  .title {
-    vertical-alignment: center;
-    font-size: 26;
-  }
-
   .home-panel {
     vertical-align: top;
     font-size: 20;
     margin: 0;
   }
-
 </style>
