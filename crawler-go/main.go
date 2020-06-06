@@ -33,9 +33,9 @@ func isContentParagraph(e colly.HTMLElement) bool {
 }
 
 type Section struct {
-	Id      int    `json:"id"`
-	Header  string `json:"header"`
-	Content string `json:"content"`
+	Id      int               `json:"id"`
+	Title   map[string]string `json:"title"`
+	Content map[string]string `json:"content"`
 }
 
 func main() {
@@ -61,12 +61,19 @@ func main() {
 	c.Wait()
 
 	for i, e := range elements {
+		var titles = make(map[string]string)
+		var contents = make(map[string]string)
+
+		titles["EN"] = e.Text
+
 		var c string
-		sections[i] = &Section{Id: i, Header: e.Text}
+		sections[i] = &Section{Id: i, Title: titles}
 
 		c = setContent(e.DOM.Next(), &c)
 
-		sections[i].Content = c
+		contents["EN"] = c
+
+		sections[i].Content = contents
 	}
 
 	// j, err := json.Marshal(sections)
