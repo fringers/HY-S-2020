@@ -3,14 +3,7 @@ import urllib.request
 import pyrebase
 from translate import translate
 from build_section import build_section
-
-config = {
-  "apiKey": "AIzaSyDOVEnFxl7AXDjlxzrgDzJbIEmN2I7770I",
-  "authDomain": "project-532228461078.firebaseapp.com",
-  "databaseURL": "https://hy-s-2020.firebaseio.com/",
-  "storageBucket": "project-532228461078.appspot.com"
-}
-
+from firebase_config import config
 
 if __name__ == '__main__':
     firebase = pyrebase.initialize_app(config)
@@ -31,7 +24,7 @@ if __name__ == '__main__':
 
         sections += [build_section(
            counter,
-           translate("pl", headerTag),
+           translate("pl", headerTag.text),
            translate("pl", descriptionTag)
         )]
         counter += 1
