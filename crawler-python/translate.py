@@ -7,9 +7,9 @@ from google.cloud import translate_v2 as translate
 translate_client = translate.Client()
 
 destLangs = [
-#    "sk",
-#    "hu",
-#    "cs",
+   "sk",
+   "hu",
+   "cs",
     "en",
     "pl",
 ]
