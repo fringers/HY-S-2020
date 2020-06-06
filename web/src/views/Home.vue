@@ -14,6 +14,16 @@
       </v-row>
       <v-row no-gutters>
         <v-col>
+          <v-select
+            :value="country"
+            :items="items"
+            label="Country"
+            @change="setCountry"
+          />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
           <Grid />
         </v-col>
       </v-row>
@@ -33,6 +43,28 @@ export default {
   },
   created() {
     this.$store.commit('setToolbarTitle', 'COVID-19');
+  },
+  data: () => ({
+    items: [
+      {
+        value: 'PL',
+        text: 'Polska',
+      },
+      {
+        value: 'CS',
+        text: 'Czechy',
+      },
+    ],
+  }),
+  computed: {
+    country() {
+      return this.$store.state.country;
+    },
+  },
+  methods: {
+    setCountry (value) {
+      this.$store.commit('setCountry', value);
+    }
   }
 }
 </script>

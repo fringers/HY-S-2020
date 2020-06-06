@@ -20,14 +20,17 @@
       SectionTile,
     },
     computed: {
+      country () {
+        return this.$store.state.country;
+      },
       items () {
-        const PL = this.$store.state.PL;
-        if (!PL) {
+        const data = this.$store.state[this.country];
+        if (!data) {
           return [];
         }
 
         const items = [];
-        PL.forEach((item => {
+        data.forEach((item => {
           items.push(item);
         }));
 

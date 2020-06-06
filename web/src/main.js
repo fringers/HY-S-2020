@@ -23,9 +23,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const dbRef = firebase.database().ref();
+
 const PLRef = dbRef.child('PL');
 PLRef.on("value", snapshot => {
   store.commit('setPL', snapshot.val());
+});
+
+const CSRef = dbRef.child('CS');
+CSRef.on("value", snapshot => {
+  store.commit('setCS', snapshot.val());
 });
 
 Vue.config.productionTip = false

@@ -19,13 +19,16 @@
       lang () {
         return this.$store.state.lang;
       },
+      country () {
+        return this.$store.state.country;
+      },
       item () {
-        const PL = this.$store.state.PL;
-        if (!PL) {
+        const data = this.$store.state[this.country];
+        if (!data) {
           return null;
         }
 
-        return PL[this.index];
+        return data[this.index];
       },
       title () {
         if (!this.item) {
