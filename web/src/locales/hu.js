@@ -24,6 +24,15 @@ export default {
         HU: 'Figyelem! Megváltoztak a korlátozások Magyarországon. Lépjen a kiemelt kategóriába további információkért.',
         CS: 'Figyelem! A korlátozások megváltoztak a Cseh Köztársaságban. Lépjen a kiemelt kategóriába további információkért.',
       }
+    },
+    locationCountryChange: {
+      title: 'A határ átlépése',
+      text: {
+        PL: 'Üdvözöljük Lengyelországban! Ismerkedjen meg az egyes kategóriák korlátozásával.',
+        SK: 'Üdvözöljük Szlovákiában! Ismerkedjen meg az egyes kategóriák korlátozásával.',
+        HU: 'Isten hozott Magyarországon! Ismerkedjen meg az egyes kategóriák korlátozásával.',
+        CS: 'Üdvözöljük a Cseh Köztársaságban! Ismerkedjen meg az egyes kategóriák korlátozásával.',
+      }
     }
   }
 }

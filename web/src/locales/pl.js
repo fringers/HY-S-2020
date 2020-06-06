@@ -24,6 +24,15 @@ export default {
         HU: 'Uwaga! Nastąpiła zmiana obostrzeń na Węgrzech. Przejdź do podświetlonej kategorii aby dowiedzieć się więcej.',
         CS: 'Uwaga! Nastąpiła zmiana obostrzeń w Czechach. Przejdź do podświetlonej kategorii aby dowiedzieć się więcej.',
       }
+    },
+    locationCountryChange: {
+      title: 'Przekroczono granicę',
+      text: {
+        PL: 'Witaj w Polsce! Zapoznaj się z obostrzeniami w poszczególnych kategoriach.',
+        SK: 'Witaj na Słowacji! Zapoznaj się z obostrzeniami w poszczególnych kategoriach.',
+        HU: 'Witaj na Węgrzech! Zapoznaj się z obostrzeniami w poszczególnych kategoriach.',
+        CS: 'Witaj w Czechach! Zapoznaj się z obostrzeniami w poszczególnych kategoriach.',
+      }
     }
   }
 }

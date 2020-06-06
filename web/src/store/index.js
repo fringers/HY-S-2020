@@ -25,7 +25,7 @@ export default new Vuex.Store({
     categoryChangeHighlight: [],
   },
   actions: {
-    locationUpdate ({ state, commit }, location) {
+    locationUpdate ({ state, commit, dispatch }, location) {
       if (state.location && state.location.timestamp > location.timestamp) {
         return;
       }
@@ -35,12 +35,10 @@ export default new Vuex.Store({
         && location.country !== state.country
       )) {
         if (state.location) {
-          commit('addNotification', {
+          dispatch('processNotification', {
             id: Date.now(),
-            name: 'LOC-CHANGED-' + state.country,
-            title: 'Przekroczono granicę',
-            body: 'W tym kraju obowiązuję inne obostrzenia. Zapoznaj się z nimi w poszczególnych kagegoriach.',
-            tag: '',
+            type: 'location-country-change',
+            country: location.country
           });
         }
 
@@ -56,6 +54,9 @@ export default new Vuex.Store({
 
         notification.title = i18n.t('notifications.changeCat.title');
         notification.body = i18n.t('notifications.changeCat.text.' + notification.country);
+      } else if (notification.type === 'location-country-change') {
+        notification.title = i18n.t('notifications.locationCountryChange.title');
+        notification.body = i18n.t('notifications.locationCountryChange.text.' + notification.country);
       }
 
       if (notification.title && notification.body) {

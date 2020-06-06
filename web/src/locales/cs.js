@@ -24,6 +24,15 @@ export default {
         HU: 'Varování! V Maďarsku došlo ke změně omezení. Další informace naleznete v zvýrazněné kategorii.',
         CS: 'Varování! V České republice došlo ke změně omezení. Další informace naleznete v zvýrazněné kategorii.',
       }
+    },
+    locationCountryChange: {
+      title: 'Překračování hranice',
+      text: {
+        PL: 'Vítejte v Polsku! Seznamte se s omezeními v každé kategorii.',
+        SK: 'Vítejte na Slovensku! Seznamte se s omezeními v každé kategorii.',
+        HU: 'Vítejte v Maďarsku! Seznamte se s omezeními v každé kategorii.',
+        CS: 'Vítejte v České republice! Seznamte se s omezeními v každé kategorii.',
+      }
     }
   }
 }
