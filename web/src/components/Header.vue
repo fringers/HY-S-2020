@@ -4,13 +4,15 @@
     color="white"
   >
     <div class="d-flex align-center">
-      <v-img
-        class="shrink mr-2"
-        contain
-        src="/imgs/logo.png"
-        transition="scale-transition"
-        width="40"
-      />
+      <router-link :to="{ name: 'home' }">
+        <v-img
+          class="shrink mr-2"
+          contain
+          src="/imgs/logo.png"
+          transition="scale-transition"
+          width="40"
+        />
+      </router-link>
     </div>
 
     <v-spacer></v-spacer>
