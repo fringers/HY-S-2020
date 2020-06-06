@@ -9,6 +9,11 @@ export default {
   province: {
     masovian: 'Masovian',
     lesser_poland: 'Lesser poland',
+    lower_silesian: 'Lower silesian',
+    'kuyavian-pomeranian': 'Kuyavian pomeranian',
+    lublin: 'Lublin',
+    lubusz: 'Lubusz',
+
     prague: 'Prague',
     bratislava: 'Bratislava'
   },

@@ -6,6 +6,14 @@ export const localRegionToENRegion = (item) => {
       return 'masovian';
     case 'malopolskie':
       return 'lesser_poland';
+    case 'dolnoslaskie':
+      return 'lower_silesian';
+    case 'kujawsko-pomorskie':
+      return 'kuyavian-pomeranian';
+    case 'lubelskie':
+      return 'lublin';
+    case 'lubuskie':
+      return 'lubusz';
 
     case 'Hlavní město Praha':
       return 'prague';
@@ -50,6 +58,7 @@ export const getRegionStats = (stats, region) => {
     return null;
   }
 
+  console.log(region)
   if (stats.deceasedByRegion) {
     const deceased = stats.deceasedByRegion
       .find(item => localRegionToENRegion(item) === region);
