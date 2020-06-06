@@ -26,8 +26,13 @@
     },
     computed: {
       titles () {
+        const PL = this.$store.state.PL;
+        if (!PL) {
+          return [];
+        }
+
         const titles = [];
-        global.PL.value.forEach((item => {
+        PL.value.forEach((item => {
           titles.push({
             id: item.id,
             title: item.title.pl,
@@ -38,8 +43,9 @@
       },
     },
     methods: {
-      onItemTap () {
-        this.$navigateTo(this.sectionPage)
+      onItemTap (item) {
+        // console.log(item);
+        // this.$navigateTo(this.sectionPage)
       }
     }
   }
