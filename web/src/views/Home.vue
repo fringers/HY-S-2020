@@ -1,0 +1,35 @@
+<template>
+  <div class="home">
+    <Panel />
+
+    <v-container>
+      <v-row>
+        <v-col>
+          <v-text-field
+            label="Szukaj info..."
+            prepend-inner-icon="mdi-magnify"
+            clearable
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <Grid />
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</template>
+
+<script>
+import Panel from "@/components/general-info/Panel.vue";
+import Grid from "@/components/section-grid/Grid.vue";
+
+export default {
+  name: 'Home',
+  components: {
+    Panel,
+    Grid,
+  }
+}
+</script>
