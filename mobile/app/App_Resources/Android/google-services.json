@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "532228461078",
+    "firebase_url": "https://hy-s-2020.firebaseio.com",
+    "project_id": "hy-s-2020",
+    "storage_bucket": "hy-s-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532228461078:android:8aa4a4d4bb72e30360db37",
+        "android_client_info": {
+          "package_name": "pl.fringers.hys2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532228461078-88ehpkbtu4k5oghe8gfe6qmj5le8tqbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6jAWSZHyBzu8FZWTFmHhZXLUekA2a8H0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532228461078-88ehpkbtu4k5oghe8gfe6qmj5le8tqbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

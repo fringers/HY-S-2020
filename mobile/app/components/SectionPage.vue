@@ -15,7 +15,9 @@
 
 <script>
   export default {
-
+    created () {
+      console.log(global.PL)
+    }
   }
 </script>
 

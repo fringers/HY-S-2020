@@ -2,10 +2,11 @@
   "name": "HY-S-2020",
   "description": "HY-S-2020",
   "scripts": {
-    "preview": "tns preview"
+    "preview": "tns preview",
+    "run": "tns run android"
   },
   "nativescript": {
-    "id": "org.nativescript.playvue",
+    "id": "pl.fringers.hys2020",
     "tns-android": {
       "version": "6.5.0"
     },
@@ -21,11 +22,12 @@
     "nativescript-accelerometer": "3.0.0",
     "nativescript-background-http": "4.2.1",
     "nativescript-camera": "4.5.0",
-    "nativescript-image": "3.0.1",
     "nativescript-geolocation": "5.1.0",
+    "nativescript-image": "3.0.1",
     "nativescript-imagepicker": "7.1.0",
     "nativescript-intl": "3.0.0",
     "nativescript-iqkeyboardmanager": "1.5.1",
+    "nativescript-plugin-firebase": "^10.5.2",
     "nativescript-social-share": "1.6.0",
     "nativescript-theme-core": "1.0.6",
     "nativescript-ui-autocomplete": "6.0.1",
@@ -56,11 +58,12 @@
     "nativescript-worker-loader": "~0.9.0",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
+    "terser-webpack-plugin": "^3.0.3",
+    "tns-platform-declarations": "6.5.0",
     "uglifyjs-webpack-plugin": "~1.2.7",
     "vue-loader": "^15.2.6",
     "webpack": "^4.16.4",
     "webpack-bundle-analyzer": "~2.13.1",
-    "webpack-cli": "^3.1.0",
-    "tns-platform-declarations": "6.5.0"
+    "webpack-cli": "^3.1.0"
   }
 }
