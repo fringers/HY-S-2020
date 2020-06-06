@@ -6,7 +6,6 @@ async function success(pos) {
   const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${pos.coords.latitude}+${pos.coords.longitude}&key=79b5572531994a5b946ecc5ec1463471`);
   const data = await response.json();
 
-  console.log(data.results[0])
   const countryCode = mapCountryCode(data.results[0].components.country_code);
   const region = mapRegion(data.results[0].components.state);
 
