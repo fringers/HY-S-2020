@@ -37,6 +37,12 @@ CSRef.on("value", snapshot => {
   store.commit('setCS', snapshot.val());
 });
 
+const PLDataRef = dbRef.child('PL-data');
+PLDataRef.on("value", snapshot => {
+  store.commit('setPLData', snapshot.val());
+});
+
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -12,18 +12,26 @@
       />
     </l-map>
 
-    <v-container class="content px-6">
+    <v-container class="content px-10">
       <v-row class="body-2">
         {{ country }}
       </v-row>
       <v-row class="subtitle-1 primary--text font-weight-medium">
         {{ region }}
       </v-row>
-      <v-row>
+      <v-row v-if="regionCurrentStatus && regionLastStatus">
         <div class="d-flex flex-row pt-2">
-          <Numbers icon="😷" :value="3123" changes="+15" />
-          <Numbers icon="💪" :value="1504" changes="+5" :inverted-color="true" />
-          <Numbers icon="💀" :value="120" changes="+8" />
+          <Numbers
+            icon="😷"
+            :value="regionCurrentStatus.infectedCount"
+            :changes="infectedChange"
+          />
+<!--          <Numbers icon="💪" :value="1504" changes="+5" :inverted-color="true" />-->
+          <Numbers
+            icon="💀"
+            :value="regionCurrentStatus.deceasedCount"
+            :changes="deceasedChange"
+          />
         </div>
       </v-row>
     </v-container>
@@ -55,12 +63,72 @@
     },
     computed: {
       country () {
+        // TODO: get from device location
         return this.$t('country.PL');
       },
       region () {
+        // TODO: get from device location
         return this.$t('province.masovian');
-      }
+      },
+      regionCurrentStatus() {
+        // TODO: get from device location
+        const region = 'mazowieckie';
+        const data = this.$store.state.PLData;
+        if (!data || !data.length) {
+          return null;
+        }
+
+        const currentStats = data[data.length - 1];
+        const regionStats = currentStats.infectedByRegion
+          .find(item => item.region === region);
+
+        return regionStats;
+      },
+      regionLastStatus() {
+        // TODO: get from device location
+        const region = 'mazowieckie';
+        const data = this.$store.state.PLData;
+        if (!data || !data.length) {
+          return null;
+        }
+
+        const currentStats = data[data.length - 3];
+        const regionStats = currentStats.infectedByRegion
+          .find(item => item.region === region);
+
+        return regionStats;
+      },
+      infectedChange() {
+        if (!this.regionCurrentStatus || !this.regionLastStatus) {
+          return '0';
+        }
+
+        const diff = this.regionCurrentStatus.infectedCount - this.regionLastStatus.infectedCount;
+        return this.numToStr(diff)
+      },
+      deceasedChange() {
+        if (!this.regionCurrentStatus || !this.regionLastStatus) {
+          return '0';
+        }
+
+        console.log(this.regionLastStatus);
+        console.log(this.regionCurrentStatus);
+        const diff = this.regionCurrentStatus.deceasedCount - this.regionLastStatus.deceasedCount;
+        return this.numToStr(diff)
+      },
     },
+    methods: {
+      numToStr (num) {
+        if (num > 0) {
+          return "+" + num;
+        } else if (num < 0) {
+          return "-" + num;
+        } else {
+          return '0';
+        }
+      }
+
+    }
   }
 </script>
 

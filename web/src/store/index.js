@@ -11,6 +11,7 @@ export default new Vuex.Store({
     toolbarTitle: '',
     PL: null,
     CS: null,
+    PLData: null,
   },
   mutations: {
     setLang(state, lang) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     setCS(state, CS) {
       state.CS = CS;
+    },
+    setPLData(state, PLData) {
+      state.PLData = PLData;
     },
   }
 })
