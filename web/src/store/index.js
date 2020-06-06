@@ -18,7 +18,9 @@ export default new Vuex.Store({
       PL: [],
       CS: [],
       SK: [],
-    }
+    },
+    notification: null,
+    categoryChangeHighlight: [],
   },
   mutations: {
     setLang(state, lang) {
@@ -65,5 +67,20 @@ export default new Vuex.Store({
     setSKData(state, SKData) {
       state.data.SK = SKData;
     },
+    clearNotifications(state) {
+      state.notification = null;
+    },
+    addNotification(state, notification) {
+      console.log("Message received. ", notification);
+      state.notification = notification;
+
+      if (notification.name && notification.name.startsWith('PL-change-cat-')) {
+        const id = notification.name[notification.name.length - 1];
+        Vue.set(state.categoryChangeHighlight, Number(id),  true);
+      }
+    },
+    clearCategoryChangeHighlight(state, categoryId) {
+      Vue.set(state.categoryChangeHighlight, categoryId,  false);
+    }
   }
 })

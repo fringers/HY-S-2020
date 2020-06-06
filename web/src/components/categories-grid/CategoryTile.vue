@@ -2,6 +2,7 @@
   <v-card
     class="card"
     @click="onItemTap"
+    :color="color"
   >
 
     <v-card-text>
@@ -19,6 +20,8 @@
 </template>
 
 <script>
+  import store from "../../store";
+
   export default {
     props: ['item'],
     computed: {
@@ -27,10 +30,21 @@
       },
       text () {
         return this.item.name[this.lang];
+      },
+      highlight () {
+        return this.$store.state.categoryChangeHighlight[this.item.id];
+      },
+      color () {
+        if (!this.highlight) {
+          return '';
+        }
+
+        return 'warning lighten-3'
       }
     },
     methods: {
       onItemTap () {
+        store.commit('clearCategoryChangeHighlight', this.item.id);
         this.$router.push({ name: 'category', params: { id: this.item.id } })
       },
       categoryIdToImg (id) {

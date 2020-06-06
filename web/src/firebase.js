@@ -49,8 +49,13 @@ const saveToken = (token) => {
 };
 
 messaging.onMessage(function(payload) {
-  console.log("Message received. ", payload);
-  // ...
+  store.commit('addNotification', {
+    id: payload.data['google.c.a.c_id'],
+    name: payload.data['google.c.a.c_l'],
+    body: payload.notification.body,
+    title: payload.notification.title,
+    tag: payload.notification.tag,
+  });
 });
 
 
