@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <Panel />
-
     <v-container>
+      <Panel />
+
       <v-row>
         <v-col>
           <v-text-field

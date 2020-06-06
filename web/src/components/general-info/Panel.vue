@@ -1,30 +1,17 @@
 <template>
-<!--  <StackLayout class="general-info-panel">-->
-<!--    <Label :text="country" textWrap="true" class="info-country-name" />-->
-<!--    <Label :text="region" textWrap="true" class="info-region-name"/>-->
-<!--    <StackLayout orientation="horizontal">-->
-<!--      <Numbers icon="😷" :value="3123" changes="+15" class="numbers-item" />-->
-<!--      <Numbers icon="💪" :value="1504" changes="-5" class="numbers-item" />-->
-<!--      <Numbers icon="💀" :value="120" changes="+8" class="numbers-item" />-->
-<!--    </StackLayout>-->
-<!--  </StackLayout>-->
   <v-container>
-    <v-row>
+    <v-row class="body-2">
       {{ country }}
     </v-row>
-    <v-row>
+    <v-row class="subtitle-1">
       {{ region }}
     </v-row>
-    <v-row no-gutters dense>
-      <v-col>
+    <v-row>
+      <div class="d-flex flex-row pt-2">
         <Numbers icon="😷" :value="3123" changes="+15" />
-      </v-col>
-      <v-col>
         <Numbers icon="💪" :value="1504" changes="-5" />
-      </v-col>
-      <v-col>
         <Numbers icon="💀" :value="120" changes="+8" />
-      </v-col>
+      </div>
     </v-row>
   </v-container>
 </template>
@@ -46,19 +33,5 @@
 </script>
 
 <style scoped>
-  .general-info-panel {
-    margin: 16;
-  }
 
-  .info-country-name {
-    font-size: 16;
-  }
-
-  .info-region-name {
-    font-size: 18;
-  }
-
-  .numbers-item {
-    margin-right: 8;
-  }
 </style>

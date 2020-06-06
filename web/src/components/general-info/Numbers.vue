@@ -1,16 +1,12 @@
 <template>
-  <v-container class="text-right">
-    <v-row no-gutters>
-      <v-col class="body-1">
-        <span>{{ icon }} {{ value }}</span>
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col class="body-2 font-weight-bold" :class="colorClass">
-        {{ changes }}
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="d-flex flex-column text-right mr-4">
+    <div class="title">
+      <span>{{ icon }} {{ value }}</span>
+    </div>
+    <div class="body-2 font-weight-bold" :class="colorClass">
+      {{ changes }}
+    </div>
+  </div>
 </template>
 
 <script>
