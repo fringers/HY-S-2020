@@ -30,6 +30,9 @@ export default {
   components: {
     Panel,
     Grid,
+  },
+  created() {
+    this.$store.commit('setToolbarTitle', 'COVID-19');
   }
 }
 </script>

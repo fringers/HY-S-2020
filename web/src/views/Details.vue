@@ -32,7 +32,7 @@
           return '';
         }
 
-        return this.item.title[this.lang];
+        return this.item.title[this.lang].replace(/<[^>]*>?/gm, '');
       },
       content () {
         if (!this.item) {
@@ -41,6 +41,14 @@
 
         return this.item.content[this.lang];
       },
+    },
+    created() {
+      this.$store.commit('setToolbarTitle', this.title);
+    },
+    watch: {
+      title () {
+        this.$store.commit('setToolbarTitle', this.title);
+      }
     }
   }
 </script>

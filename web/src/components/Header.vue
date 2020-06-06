@@ -74,11 +74,7 @@
     },
     computed: {
       titleText () {
-        if (this.title) {
-          return this.title;
-        }
-
-        return 'Super info o COVID-19';
+        return this.$store.state.toolbarTitle;
       },
       lang () {
         return this.$store.state.lang;
