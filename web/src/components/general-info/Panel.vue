@@ -93,25 +93,25 @@
         return this.$store.state.data[this.location.country];
       },
       regionCurrentStatus() {
-        if (!this.location && this.location.region) {
+        if (!this.location || !this.location.region) {
           return null;
         }
         return getCurrentRegionsStats(this.countryData, this.location.region);
       },
       regionLastStatus() {
-        if (!this.location) {
+        if (!this.location || !this.location.region) {
           return null;
         }
         return getLastRegionsStats(this.countryData, this.location.region);
       },
       infectedChange() {
-        if (!this.location) {
+        if (!this.location || !this.location.region) {
           return null;
         }
         return getInfectedChange(this.countryData, this.location.region);
       },
       deceasedChange() {
-        if (!this.location) {
+        if (!this.location || !this.location.region) {
           return null;
         }
         return getDeceasedChange(this.countryData, this.location.region);
