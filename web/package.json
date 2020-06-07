@@ -10,11 +10,13 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@mdi/font": "^3.6.95",
+    "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
     "firebase": "^7.15.0",
     "leaflet": "^1.6.0",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.0",
     "vue-i18n": "^8.18.1",
     "vue-router": "^3.2.0",
     "vue2-leaflet": "^2.5.2",

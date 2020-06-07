@@ -1,38 +1,24 @@
 <template>
   <div class="wrapper">
-    <v-card
-      v-if="last30DaysRegionInfections"
-      class="mx-auto text-center"
-      color="primary"
-      dark
-    >
-      <v-card-text>
-        <v-sheet color="rgba(0, 0, 0, .12)">
-          <v-sparkline
-            :value="last30DaysRegionInfections"
-            color="rgba(255, 255, 255, .7)"
-            height="80"
-            padding="24"
-            stroke-linecap="round"
-            smooth
-          >
-            <template v-slot:label="item">
-              {{ item.value }}
-            </template>
-          </v-sparkline>
-        </v-sheet>
-
-        <span>{{ country }}, {{ region }} - infections</span>
-      </v-card-text>
-    </v-card>
+    <LinearChart
+      :key="country + region"
+      class="pt-2"
+      :data="last30DaysValues"
+      :labels="last30DaysDates"
+      style="height: 100%"
+    />
   </div>
 </template>
 
 <script>
 
   import { getLastXDaysRegionInfections } from '@/helpers';
+  import LinearChart from "./LinearChart";
 
   export default {
+    components: {
+      LinearChart,
+    },
     computed: {
       location () {
         return this.$store.state.location;
