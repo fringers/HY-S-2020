@@ -14,6 +14,27 @@ export const localRegionToENRegion = (item) => {
       return 'lublin';
     case 'lubuskie':
       return 'lubusz';
+    case 'lodzkie':
+      return 'łódź';
+    case 'opolskie':
+      return 'opole';
+    case 'podkarpackie':
+      return 'subcarpathian';
+    case 'podlaskie':
+      return 'podlaskie';
+    case 'pomorskie':
+      return 'pomeranian';
+    case 'slaskie':
+      return 'silesian';
+    case 'swietokrzyskie':
+      return 'świętokrzyskie';
+    case 'warminsko':
+      return 'warmian-masurian';
+    case 'wielkopolskie':
+      return 'greater_poland';
+    case 'zachodniopomorskie':
+      return 'west_pomeranian';
+
 
     case 'Hlavní město Praha':
       return 'prague';

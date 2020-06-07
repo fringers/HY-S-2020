@@ -7,12 +7,22 @@ export default {
     HU: 'Hungary'
   },
   province: {
-    masovian: 'Masovian',
-    lesser_poland: 'Lesser poland',
-    lower_silesian: 'Lower silesian',
-    'kuyavian-pomeranian': 'Kuyavian pomeranian',
-    lublin: 'Lublin',
-    lubusz: 'Lubusz',
+    masovian: 'Mazowieckie',
+    lesser_poland: 'Małopolskie',
+    lower_silesian: 'Dolnoślonskie',
+    'kuyavian-pomeranian': 'Kujawsko pomorskie',
+    lublin: 'Lubelskie',
+    lubusz: 'Lubuskie',
+    łódź: 'Łódzkie',
+    podlaskie: 'Podlaskie',
+    subcarpathian: 'Podkarpackie',
+    opole: 'Opolskie',
+    pomeranian: 'Pomorskie',
+    silesian: 'Śląskie',
+    świętokrzyskie: 'Świętokrzyskie',
+    west_pomeranian: 'Zachodniopomorskie',
+    greater_poland: 'Wielkopolskie',
+    'warmian-masurian': 'Warmińsko-Mazurskie',
 
     prague: 'Prague',
     bratislava: 'Bratislava'

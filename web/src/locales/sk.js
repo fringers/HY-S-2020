@@ -7,10 +7,10 @@ export default {
     HU: 'Maďarsko'
   },
   province: {
-    masovian: 'Mazowieckie',
-    lesser_poland: 'Malopoľsko',
-    prague: 'Praha',
-    bratislava: 'Bratislava'
+    // masovian: 'Mazowieckie',
+    // lesser_poland: 'Malopoľsko',
+    // prague: 'Praha',
+    // bratislava: 'Bratislava'
   },
   search: {
     label: "Vyhľadávanie..."
