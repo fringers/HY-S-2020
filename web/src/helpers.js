@@ -160,6 +160,14 @@ export const getRegionStats = (stats, region) => {
   }
 };
 
+Date.prototype.isSameDateAs = function(pDate) {
+  return (
+      this.getFullYear() === pDate.getFullYear() &&
+      this.getMonth() === pDate.getMonth() &&
+      this.getDate() === pDate.getDate()
+  );
+}
+
 export const getCurrentRegionsStats = (data, region) => {
   if (!data || !data.length) {
     return null;
@@ -174,7 +182,11 @@ export const getLastRegionsStats = (data, region) => {
     return null;
   }
 
-  const currentStats = data[data.length - 3];
+  let i = 1;
+  while (new Date(data[data.length - i].lastUpdatedAtApify).isSameDateAs(new Date(data[data.length - i-1 ].lastUpdatedAtApify)))
+  i++;
+
+  const currentStats = data[data.length - i-1];
   return getRegionStats(currentStats, region);
 }
 
