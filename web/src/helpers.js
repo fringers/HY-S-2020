@@ -171,14 +171,16 @@ export const getSectionsByCountryAndCategoryId = (state, country, categoryId) =>
 
 export const getSectionsByCountryAndString = (state, lang, country, searchString) => {
   const data = state[country];
-  if (!data) {
-    return null;
+  if (!data || !searchString) {
+    return [];
   }
 
+  const searchValue = searchString.toLowerCase();
   const result = [];
 
   data.forEach(item => {
-    if (item.content[lang].includes(searchString)) {
+    const text = item.content[lang];
+    if (text && text.toLowerCase().includes(searchValue)) {
       result.push(item);
     }
   });
