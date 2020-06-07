@@ -24,14 +24,14 @@ export default {
         HU: 'Výstraha! V Maďarsku došlo k zmenám. Ak sa chcete dozvedieť viac, prejdite na zvýraznenú kategóriu.',
         CS: 'Výstraha! V Českej republike došlo k zmenám. Ak sa chcete dozvedieť viac, prejdite na zvýraznenú kategóriu.',
       },
-      locationCountryChange: {
-        title: 'Prekračovanie hranice',
-        text: {
-          PL: 'Vitajte v Poľsku! Oboznámte sa s obmedzeniami v každej kategórii.',
-          SK: 'Vitajte na Slovensku! Oboznámte sa s obmedzeniami v každej kategórii.',
-          HU: 'Vitajte v Maďarsku! Oboznámte sa s obmedzeniami v každej kategórii.',
-          CS: 'Vitajte v Českej republike! Oboznámte sa s obmedzeniami v každej kategórii.',
-        }
+    },
+    locationCountryChange: {
+      title: 'Prekračovanie hranice',
+      text: {
+        PL: 'Vitajte v Poľsku! Oboznámte sa s obmedzeniami v každej kategórii.',
+        SK: 'Vitajte na Slovensku! Oboznámte sa s obmedzeniami v každej kategórii.',
+        HU: 'Vitajte v Maďarsku! Oboznámte sa s obmedzeniami v každej kategórii.',
+        CS: 'Vitajte v Českej republike! Oboznámte sa s obmedzeniami v každej kategórii.',
       }
     }
   }
