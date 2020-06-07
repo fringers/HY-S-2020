@@ -33,6 +33,14 @@ func isHeaderH2(e colly.HTMLElement) bool {
 	return e.Name == "h2" && e.Attr("class") == "govuk-heading-m"
 }
 
+func isDeprecatedInfo(e colly.HTMLElement) bool {
+	if e.Text == "GOVERNMENTAL MEASURES DURING EASTER" {
+		return true
+	}
+
+	return false
+}
+
 func isContentParagraph(e colly.HTMLElement) bool {
 	return e.Name == "p" && e.Attr("class") == "govuk-body"
 }
@@ -58,7 +66,7 @@ func main() {
 	var elements []colly.HTMLElement
 
 	c.OnHTML("h2,h3", func(e *colly.HTMLElement) {
-		if isHeaderH3(*e) || isHeaderH2(*e) {
+		if (isHeaderH3(*e) || isHeaderH2(*e)) && !isDeprecatedInfo(*e) {
 			elements = append(elements, *e)
 		}
 	})
