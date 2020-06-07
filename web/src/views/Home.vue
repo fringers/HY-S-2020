@@ -114,7 +114,7 @@ export default {
       ];
     },
     searchMode() {
-      return this.searchString && this.searchString.length > 0;
+      return this.searchString && this.searchString.length > 1;
     }
   },
   methods: {

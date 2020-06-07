@@ -51,7 +51,8 @@
 
         const html = item.content[this.lang];
 
-        return html.replace(this.searchString, '<mark>' + this.searchString + '</mark>')
+        var reg  = new RegExp(this.searchString, "i");
+        return html.replace(reg, (match) => '<mark>' + match + '</mark>')
       },
     }
   }
