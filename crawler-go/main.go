@@ -117,7 +117,7 @@ func main() {
 }
 
 func translateByPyScript(s string) Translation {
-	cmd := exec.Command("python3", "/mnt/d/fab/hackyeah2020/HY-S-2020/crawler-python/html_transate.py", s)
+	cmd := exec.Command("python3", "../crawler-python/html_transate.py", s)
 	cmd.Stderr = os.Stderr
 
 	cmdOut, err := cmd.StdoutPipe()
