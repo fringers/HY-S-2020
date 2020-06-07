@@ -1,6 +1,22 @@
 <template>
   <div>
-
+    <v-expansion-panels
+      flat
+      focusable
+      multiple
+    >
+      <v-expansion-panel
+        v-for="item in items"
+        :key="item.id"
+      >
+        <v-expansion-panel-header>
+          {{ itemTitle(item) }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <div class="pt-5" v-html="itemContent(item)" />
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
@@ -17,9 +33,25 @@
         return this.$store.state.country;
       },
       items () {
-        return getSectionsByCountryAndString(this.$store.state, this.country, this.id);
+        return getSectionsByCountryAndString(this.$store.state, this.lang, this.country, this.searchString);
       },
     },
+    methods: {
+      itemTitle (item) {
+        if (!item) {
+          return '';
+        }
+
+        return item.title[this.lang].replace(/<[^>]*>?/gm, '');
+      },
+      itemContent (item) {
+        if (!item) {
+          return '';
+        }
+
+        return item.content[this.lang];
+      },
+    }
   }
 </script>
 

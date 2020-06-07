@@ -27,7 +27,6 @@
             :label="this.$t('search.label')"
             prepend-inner-icon="mdi-magnify"
             clearable
-            @input="onSearch"
           />
         </v-col>
       </v-row>
@@ -122,9 +121,6 @@ export default {
     setCountry (value) {
       this.$store.commit('setCountry', value);
     },
-    onSearch () {
-      console.log(this.searchString);
-    }
   }
 }
 </script>
