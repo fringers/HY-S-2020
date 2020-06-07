@@ -62,7 +62,8 @@ export const getLastXDaysRegionStats = (data, region, days = 7) => {
 
   return stats
     .map(item => item.infectedByRegion
-      .find(item => localRegionToENRegion(item) === region));
+      .find(item => localRegionToENRegion(item) === region))
+    .filter(it => !!it);
 }
 
 export const getLastXDaysRegionInfections = (data, region, days = 7) => {
@@ -74,17 +75,37 @@ export const getLastXDaysRegionInfections = (data, region, days = 7) => {
   return stats.map(item => item.infectedCount);
 }
 
+export const getGeneralStats = (stats) => {
+  if (!stats) {
+    return null;
+  }
+
+  return {
+    infectedCount: stats.infected,
+    deceasedCount: stats.deceased,
+  };
+}
+
 export const getRegionStats = (stats, region) => {
-  if (!stats || !region) {
+  if (!stats) {
     return null;
   }
 
   console.log(region)
+
+  if (!region) {
+    return getGeneralStats(stats);
+  }
+
   if (stats.deceasedByRegion) {
     const deceased = stats.deceasedByRegion
       .find(item => localRegionToENRegion(item) === region);
     const infected = stats.infectedByRegion
       .find(item => localRegionToENRegion(item) === region);
+
+    if (!deceased || !infected) {
+      return getGeneralStats(stats);
+    }
 
     return {
       infectedCount: infected.value,
@@ -94,6 +115,10 @@ export const getRegionStats = (stats, region) => {
     const result = stats.infectedByCounty
       .find(item => localRegionToENRegion(item) === region);
 
+    if (!result) {
+      return getGeneralStats(stats);
+    }
+
     return {
       infectedCount: result.infectedCount,
       deceasedCount: null,
@@ -101,6 +126,10 @@ export const getRegionStats = (stats, region) => {
   } else {
     const result = stats.infectedByRegion
       .find(item => localRegionToENRegion(item) === region);
+
+    if (!result) {
+      return getGeneralStats(stats);
+    }
 
     return {
       infectedCount: result.infectedCount,
@@ -110,7 +139,7 @@ export const getRegionStats = (stats, region) => {
 };
 
 export const getCurrentRegionsStats = (data, region) => {
-  if (!data || !data.length || !region) {
+  if (!data || !data.length) {
     return null;
   }
 
@@ -120,7 +149,7 @@ export const getCurrentRegionsStats = (data, region) => {
 }
 
 export const getLastRegionsStats = (data, region) => {
-  if (!data || !data.length || !region) {
+  if (!data || !data.length) {
     return null;
   }
 
