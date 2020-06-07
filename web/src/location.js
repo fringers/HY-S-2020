@@ -25,6 +25,7 @@ const mapRegion = (state) => {
   let region = state;
   region = region.toLowerCase();
   region = region.replace('voivodeship', '');
+  region = region.replace('województwo', '');
   region = region.replace('region of', '');
   region = region.trim();
   region = region.replace(' ', '_');
