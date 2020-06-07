@@ -2,13 +2,13 @@ importScripts('https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js');
 
 firebase.initializeApp({
-  apiKey: "AIzaSyAO1d2EL3qFxCAIUi-T7j3FfS9sSzcmSmg",
-  authDomain: "hy-s-2020.firebaseapp.com",
-  databaseURL: "https://hy-s-2020.firebaseio.com",
-  projectId: "hy-s-2020",
-  storageBucket: "hy-s-2020.appspot.com",
-  messagingSenderId: "532228461078",
-  appId: "1:532228461078:web:639107890f0a378f60db37"
+  apiKey: "AIzaSyDHXa1sqekASxWwxg6PJdPEO9XG-PLVLqE",
+  authDomain: "hackyeah-summer-2020.firebaseapp.com",
+  databaseURL: "https://hackyeah-summer-2020.firebaseio.com",
+  projectId: "hackyeah-summer-2020",
+  storageBucket: "hackyeah-summer-2020.appspot.com",
+  messagingSenderId: "914318546661",
+  appId: "1:914318546661:web:54bf6840c45cbcd0b0660c"
 });
 
 const messaging = firebase.messaging();
