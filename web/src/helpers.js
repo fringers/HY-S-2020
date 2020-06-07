@@ -38,6 +38,20 @@ export const localRegionToENRegion = (item) => {
 
     case 'Hlavní město Praha':
       return 'prague';
+    case 'Středočeský kraj':
+      return 'central_bohemia';
+    case 'Jihočeský kraj':
+      return 'southwest';
+    case 'Karlovarský kraj':
+      return 'northwest';
+    case 'Liberecký kraj':
+      return 'northeast';
+    case 'Kraj Vysočina':
+      return 'southeast';
+    case 'Olomoucký kraj':
+      return 'central_moravia';
+    case 'Moravskoslezský kraj':
+      return 'moravia-silesia';
 
     case 'Bratislavský kraj':
       return 'bratislava';
