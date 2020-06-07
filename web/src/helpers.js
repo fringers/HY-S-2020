@@ -74,10 +74,15 @@ export const getLastXDaysRegionStats = (data, region, days = 7) => {
     return null;
   }
 
-  return stats
-    .map(item => item.infectedByRegion
-      .find(item => localRegionToENRegion(item) === region))
-    .filter(it => !!it);
+  const tmp = stats
+    .map(item => {
+      return {
+        data: getRegionStats(item, region),
+        timestamp: Date.parse(item.lastUpdatedAtApify),
+      };
+    });
+
+  return tmp.filter(it => !!it.data);
 }
 
 export const getLastXDaysRegionInfections = (data, region, days = 7) => {
@@ -86,7 +91,12 @@ export const getLastXDaysRegionInfections = (data, region, days = 7) => {
     return null;
   }
 
-  return stats.map(item => item.infectedCount);
+  return stats.map(item => {
+    return {
+      value: item.data.infectedCount,
+      timestamp: item.timestamp
+    }
+  });
 }
 
 export const getGeneralStats = (stats) => {
@@ -104,8 +114,6 @@ export const getRegionStats = (stats, region) => {
   if (!stats) {
     return null;
   }
-
-  console.log(region)
 
   if (!region) {
     return getGeneralStats(stats);
@@ -157,7 +165,6 @@ export const getCurrentRegionsStats = (data, region) => {
     return null;
   }
 
-  // console.log(data, region)
   let currentStats = data[data.length - 1];
   return getRegionStats(currentStats, region);
 }

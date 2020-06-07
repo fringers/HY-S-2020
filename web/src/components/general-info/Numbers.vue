@@ -2,8 +2,8 @@
   <div class="d-flex flex-row text-right mr-4">
     <v-img
       :src="img"
-      width="30"
-      height="30"
+      width="36"
+      height="36"
       class="mt-2 mr-2"
     />
     <div class="d-flex flex-column">

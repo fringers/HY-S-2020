@@ -121,6 +121,6 @@ export default {
     setCountry (value) {
       this.$store.commit('setCountry', value);
     },
-  }
+  },
 }
 </script>

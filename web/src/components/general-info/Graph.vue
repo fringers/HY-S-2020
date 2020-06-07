@@ -47,6 +47,35 @@
         }
         return getLastXDaysRegionInfections(this.countryData, this.location.region);
       },
+      last30DaysValues () {
+        if (!this.last30DaysRegionInfections) {
+          return null;
+        }
+
+        return this.last30DaysRegionInfections.map(it => it.value);
+      },
+      last30DaysDates () {
+        if (!this.last30DaysRegionInfections) {
+          return null;
+        }
+
+        return this.last30DaysRegionInfections.map(it => this.formatDate(it.timestamp));
+      },
+    },
+    methods: {
+      formatDate (date) {
+        var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+        if (month.length < 2)
+          month = '0' + month;
+        if (day.length < 2)
+          day = '0' + day;
+
+        return [year, month, day].join('-');
+      }
     }
   }
 </script>
