@@ -154,7 +154,7 @@ export const numToStr = (num) => {
   if (num > 0) {
     return "+" + num;
   } else if (num < 0) {
-    return "-" + num;
+    return num.toString();
   } else {
     return '0';
   }
