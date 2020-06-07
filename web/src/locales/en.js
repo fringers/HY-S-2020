@@ -24,7 +24,16 @@ export default {
     greater_poland: 'Wielkopolskie',
     'warmian-masurian': 'Warmińsko-Mazurskie',
 
-    prague: 'Prague',
+    prague: 'Hlavní město Praha',
+    central_bohemia: 'Středočeský kraj',
+    southwest: 'Jihočeský kraj',
+    northwest: 'Karlovarský kraj',
+    northeast: 'Liberecký kraj',
+    southeast: 'Kraj Vysočina',
+    central_moravia: 'Olomoucký kraj',
+    'moravia-silesia': 'Moravskoslezský kraj',
+
+
     bratislava: 'Bratislava'
   },
   search: {
