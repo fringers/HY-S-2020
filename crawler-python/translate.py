@@ -44,7 +44,7 @@ def translate_str(srcLang, txt):
         if srcLang == destLang:
             output[destLang.upper()] = txt
             continue
-        output[destLang.upper] = translate_client.translate(
+        output[destLang.upper()] = translate_client.translate(
                 txt,
                 source_language=srcLang,
                 target_language=destLang)['translatedText']
