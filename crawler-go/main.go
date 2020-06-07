@@ -1,9 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
+	"os"
+	"os/exec"
 
 	firebase "firebase.google.com/go"
 	"github.com/PuerkitoBio/goquery"
@@ -34,10 +38,12 @@ func isContentParagraph(e colly.HTMLElement) bool {
 }
 
 type Section struct {
-	Id      int               `json:"id"`
-	Title   map[string]string `json:"title"`
-	Content map[string]string `json:"content"`
+	Id      int         `json:"id"`
+	Title   Translation `json:"title"`
+	Content Translation `json:"content"`
 }
+
+type Translation map[string]string
 
 func main() {
 	// Instantiate default collector
@@ -62,21 +68,15 @@ func main() {
 	c.Wait()
 
 	for i, e := range elements {
-		var titles = make(map[string]string)
-		var contents = make(map[string]string)
-
-		titles["EN"] = e.Text
-
 		var c string
-		sections[i] = &Section{Id: i, Title: titles}
+		sections[i] = &Section{Id: i, Title: translateByPyScript(e.Text)}
 
 		c = setContent(e.DOM.Next(), &c)
 
-		contents["EN"] = c
-
-		sections[i].Content = contents
+		sections[i].Content = translateByPyScript(c)
 	}
 
+	// MARSHALLING FOR DEBUGGING
 	// j, err := json.Marshal(sections)
 	// if err != nil {
 	// 	log.Fatalf("json marshal failed: %+v", err)
@@ -84,13 +84,14 @@ func main() {
 
 	// fmt.Print(string(j))
 
+	// FIREBASE
 	ctx := context.Background()
 
 	config := &firebase.Config{
-		DatabaseURL: "https://hy-s-2020.firebaseio.com/",
+		DatabaseURL: "https://hackyeah-summer-2020.firebaseio.com/",
 	}
 
-	opt := option.WithCredentialsFile("hy-s-2020-firebase-adminsdk-zspif-2b122965cd.json")
+	opt := option.WithCredentialsFile("hackyeah-summer-2020-firebase-adminsdk-oujeb-a7ae7939ca.json")
 	app, err := firebase.NewApp(context.Background(), config, opt)
 	if err != nil {
 		log.Fatalf("error initializing app: %v\n", err)
@@ -105,6 +106,38 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to set data: ", err)
 	}
+}
+
+func translateByPyScript(s string) Translation {
+	cmd := exec.Command("python3", "/mnt/d/fab/hackyeah2020/HY-S-2020/crawler-python/html_transate.py", s)
+	cmd.Stderr = os.Stderr
+
+	cmdOut, err := cmd.StdoutPipe()
+	if err != nil {
+		log.Fatalf("failed cmd.StdoutPipe: %v\n", err)
+	}
+
+	translation := make(chan string)
+
+	go func() {
+		reader := bufio.NewReader(cmdOut)
+		read, err := reader.ReadString('\n')
+		if err != nil {
+			log.Fatalf("failed to read vom stdout: %v\n", err)
+		}
+
+		translation <- string(read)
+	}()
+
+	cmd.Run()
+
+	trans := <-translation
+
+	var t Translation
+
+	json.Unmarshal([]byte(trans), &t)
+
+	return t
 }
 
 func setContent(s *goquery.Selection, c *string) string {
