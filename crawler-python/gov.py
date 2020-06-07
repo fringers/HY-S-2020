@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
         sections += [build_section(
            counter,
-           translate("pl", headerTag.text),
+           translate("pl", headerTag),
            translate("pl", descriptionTag)
         )]
         counter += 1
