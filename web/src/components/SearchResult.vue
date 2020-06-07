@@ -49,7 +49,9 @@
           return '';
         }
 
-        return item.content[this.lang];
+        const html = item.content[this.lang];
+
+        return html.replace(this.searchString, '<mark>' + this.searchString + '</mark>')
       },
     }
   }
