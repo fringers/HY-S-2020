@@ -65,7 +65,20 @@ export const getLastXDaysStats = (data, days = 7) => {
     return null;
   }
 
-  return data.slice(Math.max(data.length - days, 0))
+  let i = data.length - 1;
+  const result = [ data[i] ];
+  let c = 0;
+  while (i > 0 && c < days) {
+    i--;
+    if (new Date(result[result.length - 1].lastUpdatedAtApify).isSameDateAs(new Date(data[i].lastUpdatedAtApify))) {
+      continue;
+    }
+
+    result.push(data[i]);
+    c++;
+  }
+
+  return result.reverse();
 }
 
 export const getLastXDaysRegionStats = (data, region, days = 7) => {

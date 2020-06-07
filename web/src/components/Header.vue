@@ -90,7 +90,7 @@
       },
       lang () {
         return this.$store.state.lang;
-      }
+      },
     },
     methods: {
       langIconUrl(lang) {

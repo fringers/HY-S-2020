@@ -2,7 +2,8 @@
   <v-expansion-panels
     flat
     focusable
-    multiple :value="value"
+    multiple
+    :value="value"
   >
     <v-expansion-panel
       v-for="item in items"

@@ -4,6 +4,7 @@
       flat
       focusable
       multiple
+      :value="[0]"
     >
       <v-expansion-panel
         v-for="item in items"
