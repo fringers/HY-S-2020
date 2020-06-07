@@ -1,47 +1,63 @@
 <template>
   <div class="home">
 
-    <v-carousel
-      height="150"
-      hide-delimiter-background
-      hide-delimiters
-      show-arrows-on-hover
-    >
-      <v-carousel-item>
-        <Panel />
-      </v-carousel-item>
+    <v-expand-transition>
+      <v-carousel
+        v-show="!searchMode"
+        height="150"
+        hide-delimiter-background
+        hide-delimiters
+        show-arrows-on-hover
+      >
+        <v-carousel-item>
+          <Panel />
+        </v-carousel-item>
 
-      <v-carousel-item>
-        <Graph />
-      </v-carousel-item>
-    </v-carousel>
+        <v-carousel-item>
+          <Graph />
+        </v-carousel-item>
+      </v-carousel>
+    </v-expand-transition>
 
-    <v-container>
+    <v-container class="py-1">
       <v-row no-gutters>
         <v-col>
           <v-text-field
+            v-model="searchString"
             :label="this.$t('search.label')"
             prepend-inner-icon="mdi-magnify"
             clearable
+            @input="onSearch"
           />
-        </v-col>
-      </v-row>
-      <v-row no-gutters>
-        <v-col>
-          <v-select
-            :value="country"
-            :items="items"
-            :label="this.$t('country.label')"
-            @change="setCountry"
-          />
-        </v-col>
-      </v-row>
-      <v-row no-gutters>
-        <v-col>
-          <Grid />
         </v-col>
       </v-row>
     </v-container>
+
+    <v-expand-transition>
+      <v-container class="py-0">
+        <v-row
+          v-show="!searchMode"
+          no-gutters
+        >
+          <v-col>
+            <v-select
+              :value="country"
+              :items="items"
+              :label="this.$t('country.label')"
+              @change="setCountry"
+            />
+          </v-col>
+        </v-row>
+        <v-row
+          v-show="!searchMode"
+          no-gutters
+        >
+          <v-col>
+            <Grid />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-expand-transition>
   </div>
 </template>
 
@@ -56,6 +72,11 @@ export default {
     Panel,
     Graph,
     Grid,
+  },
+  data () {
+    return {
+      searchString: '',
+    };
   },
   created() {
     this.$store.commit('setToolbarTitle', 'COVID-19');
@@ -83,11 +104,17 @@ export default {
           text: this.$t('country.HU'),
         },
       ];
+    },
+    searchMode() {
+      return this.searchString && this.searchString.length > 0;
     }
   },
   methods: {
     setCountry (value) {
       this.$store.commit('setCountry', value);
+    },
+    onSearch () {
+      console.log(this.searchString);
     }
   }
 }
