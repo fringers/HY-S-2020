@@ -93,7 +93,7 @@
         return this.$store.state.data[this.location.country];
       },
       regionCurrentStatus() {
-        if (!this.location) {
+        if (!this.location && this.location.region) {
           return null;
         }
         return getCurrentRegionsStats(this.countryData, this.location.region);
