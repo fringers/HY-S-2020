@@ -34,6 +34,13 @@
     </v-container>
 
     <v-expand-transition>
+      <SearchResult
+        v-show="searchMode"
+        :searchString="searchString"
+      />
+    </v-expand-transition>
+
+    <v-expand-transition>
       <v-container class="py-0">
         <v-row
           v-show="!searchMode"
@@ -65,6 +72,7 @@
 import Panel from "@/components/general-info/Panel.vue";
 import Graph from "@/components/general-info/Graph.vue";
 import Grid from "@/components/categories-grid/Grid.vue";
+import SearchResult from "@/components/SearchResult";
 
 export default {
   name: 'Home',
@@ -72,6 +80,7 @@ export default {
     Panel,
     Graph,
     Grid,
+    SearchResult,
   },
   data () {
     return {
