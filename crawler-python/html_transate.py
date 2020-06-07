@@ -7,6 +7,6 @@ import sys
 raw_html = sys.argv[1]
 soup = BeautifulSoup(raw_html, "html.parser")
 
-print(json.dumps(translate("sk", soup)))
+print(json.dumps(translate("en", soup)))
 
 

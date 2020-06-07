@@ -1,6 +1,5 @@
 import copy
 import time
-from googletrans import Translator
 from google.cloud import translate_v2 as translate
 
 #translator = Translator()
@@ -34,7 +33,6 @@ def translate(srcLang, element):
             )
     
         output[destLang.upper()] = copyElement.prettify()
-    print(output)
     return output
 
 
